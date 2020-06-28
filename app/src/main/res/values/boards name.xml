@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Deutsch">"독일"</string>
+    <string name="UK">"영국"</string>
+    <string name="France">"프랑스"</string>
+    <string name="Italy">"이탈리아"</string>
+</resources>
