@@ -25,12 +25,14 @@ class MsgListActivity : AppCompatActivity() {
                 finish()
             }
             R.id.navigation_noti -> {
-                textMessage.setText(R.string.title_notifications)
-                return@OnNavigationItemSelectedListener true
+                val intent = Intent(this, NotiActivity::class.java)
+                startActivity(intent)
+                finish()
             }
             R.id.navigation_mypage -> {
-                textMessage.setText(R.string.title_mypage)
-                return@OnNavigationItemSelectedListener true
+                val intent = Intent(this, MypageActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
         false

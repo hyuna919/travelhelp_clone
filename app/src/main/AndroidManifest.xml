@@ -21,6 +21,8 @@
         <activity android:name=".SignupActivity"/>
         <activity android:name=".BoardActivity"/>
         <activity android:name=".MsgListActivity"/>
+        <activity android:name=".NotiActivity"/>
+        <activity android:name=".MypageActivity"/>
     </application>
 
 </manifest>
