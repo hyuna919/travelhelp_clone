@@ -65,5 +65,8 @@ class NotiActivity : AppCompatActivity() {
         val lm = LinearLayoutManager(this)
         msg_list_rv.layoutManager = lm
         msg_list_rv.setHasFixedSize(true)
+
+
+
     }
 }
