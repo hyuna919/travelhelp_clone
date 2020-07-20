@@ -23,6 +23,7 @@
         <activity android:name=".MsgListActivity"/>
         <activity android:name=".NotiActivity"/>
         <activity android:name=".MypageActivity"/>
+        <activity android:name=".PostReadActivity"/>
     </application>
 
 </manifest>

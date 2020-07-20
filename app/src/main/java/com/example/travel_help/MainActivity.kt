@@ -55,9 +55,8 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, BoardActivity::class.java)
         val mAdapter = MainRvAdapter(this, countryList) {
             //country ->startActivity(intent)}//(Intent(this, BoardActivity::class.java))}
-                country ->intent.putExtra("title", country.countryName)
+            country ->intent.putExtra("title", country.countryName)
             startActivity(intent)
-
         }
         main_rv.adapter = mAdapter
 

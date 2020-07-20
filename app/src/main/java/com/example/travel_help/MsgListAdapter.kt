@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MsgListAdapter(val context:Context, val msgList: ArrayList<DataClassMsg>, val itemClick: (DataClassMsg) -> Unit):
+class MsgListAdapter(val context:Context, val list: ArrayList<DataClassMsg>, val itemClick: (DataClassMsg) -> Unit):
     RecyclerView.Adapter<MsgListAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.msg_list_rv, parent, false)
@@ -15,11 +15,11 @@ class MsgListAdapter(val context:Context, val msgList: ArrayList<DataClassMsg>, 
     }
 
     override fun getItemCount(): Int {
-        return msgList.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(msgList[position], context)
+        holder?.bind(list[position], context)
     }
 
     inner class Holder(itemView: View?, itemClick:(DataClassMsg)->Unit) : RecyclerView.ViewHolder(itemView!!) {
