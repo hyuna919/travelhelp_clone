@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.msg_list.*
+import kotlinx.android.synthetic.main.mypage.*
 
 
 class MypageActivity : AppCompatActivity() {
@@ -59,11 +60,11 @@ class MypageActivity : AppCompatActivity() {
             //startActivity(intent)
 
         }
-        msg_list_rv.adapter = mAdapter
+        mypage_rv.adapter = mAdapter
 
         //리사이클러뷰 레이아웃매니저
         val lm = LinearLayoutManager(this)
-        msg_list_rv.layoutManager = lm
-        msg_list_rv.setHasFixedSize(true)
+        mypage_rv.layoutManager = lm
+        mypage_rv.setHasFixedSize(true)
     }
 }
