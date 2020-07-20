@@ -2,6 +2,7 @@ package com.example.travel_help
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
@@ -51,8 +52,15 @@ class BoardActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
+        //게시판 이름
         val title = intent.getStringExtra("title")
         board_boardtitle.setText(title)
+
+        //버튼
+        board_btn_write.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, PostWriteActivity::class.java)
+            startActivity(intent)
+    })
 
         //리사이클러뷰 어댑터
         val intent = Intent(this, PostReadActivity::class.java)
