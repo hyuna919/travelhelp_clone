@@ -51,6 +51,9 @@ class BoardActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
+        val title = intent.getStringExtra("title")
+        board_boardtitle.setText(title)
+
         //리사이클러뷰 어댑터
         val intent = Intent(this, PostReadActivity::class.java)
         val mAdapter = BoardRvAdapter(this, dummy) {

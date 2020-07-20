@@ -13,46 +13,57 @@
             android:layout_height="wrap_content"
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"
-            android:id="@+id/toolbar2"
+            android:id="@+id/pr_tb"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0">
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0"/>
 
-
-    </androidx.appcompat.widget.Toolbar>
     <TextView
-            android:text="TextView"
+            android:id="@+id/pr_tb_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="글 보기"
+            app:layout_constraintEnd_toEndOf="@+id/pr_tb"
+            app:layout_constraintStart_toStartOf="@+id/pr_tb"
+            app:layout_constraintBottom_toBottomOf="@+id/pr_tb"
+            app:layout_constraintTop_toTopOf="@+id/pr_tb"/>
+
+    <TextView
+            android:id="@+id/pr_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/title"
-            app:layout_constraintStart_toStartOf="@+id/btn_msg" android:layout_marginStart="32dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/pr_btn_msg" android:layout_marginStart="32dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
-            app:layout_constraintHorizontal_bias="1.0" app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+            app:layout_constraintHorizontal_bias="1.0" app:layout_constraintTop_toBottomOf="@+id/pr_tb"
             android:layout_marginTop="32dp"/>
     <TextView
-            android:text="TextView"
+            android:id="@+id/pr_date"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" android:id="@+id/date"
-            app:layout_constraintTop_toBottomOf="@+id/title" app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintEnd_toEndOf="@+id/title" android:layout_marginTop="16dp"/>
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/pr_title" app:layout_constraintStart_toStartOf="@+id/pr_title"
+            app:layout_constraintEnd_toEndOf="@+id/pr_title" android:layout_marginTop="16dp" android:inputType="date"/>
     <TextView
+            android:id="@+id/pr_airport"
             android:text="TextView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" android:id="@+id/airport"
-            app:layout_constraintStart_toStartOf="@+id/date"
-            app:layout_constraintTop_toBottomOf="@+id/date" app:layout_constraintEnd_toEndOf="@+id/date"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/pr_date"
+            app:layout_constraintTop_toBottomOf="@+id/pr_date" app:layout_constraintEnd_toEndOf="@+id/pr_date"
             android:layout_marginTop="16dp"/>
     <TextView
+            android:id="@+id/pr_contents"
             android:text="TextView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" android:id="@+id/contents" android:singleLine="false"
-            app:layout_constraintTop_toBottomOf="@+id/airport" app:layout_constraintStart_toStartOf="@+id/airport"
-            app:layout_constraintEnd_toEndOf="@+id/airport" android:layout_marginTop="16dp"/>
+            android:layout_height="wrap_content"  android:singleLine="false"
+            app:layout_constraintTop_toBottomOf="@+id/pr_airport" app:layout_constraintStart_toStartOf="@+id/pr_airport"
+            app:layout_constraintEnd_toEndOf="@+id/pr_airport" android:layout_marginTop="16dp"/>
     <Button
+            android:id="@+id/pr_btn_msg"
             android:text="쪽지   "
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/btn_msg"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/contents"
+            app:layout_constraintTop_toBottomOf="@+id/pr_contents"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.0" android:gravity="right|center_vertical"
