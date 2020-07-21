@@ -19,6 +19,5 @@ class PostWriteActivity :AppCompatActivity(){
             finish()
         })
 
-
     }
 }
