@@ -56,11 +56,11 @@ class BoardActivity : AppCompatActivity() {
         val title = intent.getStringExtra("title")
         board_boardtitle.setText(title)
 
-        //버튼
+        //글 작성 버튼
         board_btn_write.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, PostWriteActivity::class.java)
             startActivity(intent)
-    })
+        })
 
         //리사이클러뷰 어댑터
         val intent = Intent(this, PostReadActivity::class.java)

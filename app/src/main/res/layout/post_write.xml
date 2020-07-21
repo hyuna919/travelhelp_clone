@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         tools:context=".PostWriteActivity">
 
+
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/pwr_tb"
             android:layout_width="395dp"
@@ -25,8 +26,21 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/pwr_tb"
             app:layout_constraintEnd_toEndOf="@+id/pwr_tb" app:layout_constraintTop_toTopOf="@+id/pwr_tb"
-            app:layout_constraintBottom_toBottomOf="@+id/pwr_tb" app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintBottom_toBottomOf="@+id/pwr_tb" app:layout_constraintHorizontal_bias="0.16"
             android:textColor="@color/colorBlack" android:text="글 쓰기"/>
+
+    <Button
+            android:id="@+id/pwr_btn"
+            android:text="저장"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorYellow"
+            app:layout_constraintEnd_toEndOf="@+id/pwr_tb"
+            app:layout_constraintTop_toTopOf="@+id/pwr_tb"
+            app:layout_constraintBottom_toBottomOf="@+id/pwr_tb" app:layout_constraintStart_toStartOf="@+id/pwr_tb"
+            app:layout_constraintHorizontal_bias="0.85"/>
+
+
     <EditText
             android:id="@+id/pwr_date"
             android:layout_width="158dp"
