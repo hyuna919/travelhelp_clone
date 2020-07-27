@@ -87,15 +87,6 @@ class BoardActivity : AppCompatActivity() {
         val lm = LinearLayoutManager(this)
         board_rv.layoutManager = lm
         board_rv.setHasFixedSize(true)
-
-
-
-
-
-
-
-
     }
-
 
 }

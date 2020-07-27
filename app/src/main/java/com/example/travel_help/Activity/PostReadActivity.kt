@@ -10,16 +10,6 @@ import kotlinx.android.synthetic.main.post_read.*
 
 class PostReadActivity : AppCompatActivity() {
 
-    //리사이클러뷰 더미데이터
-    val dummy = arrayListOf<DataClassPost>(
-        DataClassPost(
-            "제목",
-            20200616,
-            "frankfurt",
-            "앙뇽하세요내용입니다블라블라블ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ라"
-        )
-    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.post_read)
@@ -31,9 +21,5 @@ class PostReadActivity : AppCompatActivity() {
         pr_airport?.text = post.airport
         pr_contents?.text = post.content
 
-
     }
-
-
-
 }
