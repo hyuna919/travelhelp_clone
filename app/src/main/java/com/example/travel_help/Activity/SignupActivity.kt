@@ -1,9 +1,10 @@
-package com.example.travel_help
+package com.example.travel_help.Activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Toolbar
+import com.example.travel_help.R
 
 
 class SignupActivity : AppCompatActivity() {

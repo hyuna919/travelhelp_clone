@@ -6,7 +6,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".PostWriteActivity">
+        tools:context=".Activity.PostWriteActivity">
 
     <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0"/>
 
-    
+
     <TextView
             android:id="@+id/pr_tb_title"
             android:layout_width="wrap_content"

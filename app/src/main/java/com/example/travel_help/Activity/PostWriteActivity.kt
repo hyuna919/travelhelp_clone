@@ -1,10 +1,9 @@
-package com.example.travel_help
+package com.example.travel_help.Activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.travel_help.R
 import kotlinx.android.synthetic.main.post_write.*
 
 class PostWriteActivity :AppCompatActivity(){

@@ -1,17 +1,18 @@
-package com.example.travel_help
+package com.example.travel_help.Activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.travel_help.DataClass.DataClassNotification
+import com.example.travel_help.RecyclerViewAdapter.NotiRvAdapter
+import com.example.travel_help.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.msg_list.*
-import kotlinx.android.synthetic.main.mypage.*
+import kotlinx.android.synthetic.main.notification.*
 
 
-class MypageActivity : AppCompatActivity() {
+class NotiActivity : AppCompatActivity() {
     private lateinit var textMessage: TextView
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -40,31 +41,30 @@ class MypageActivity : AppCompatActivity() {
     }
 
     //리사이클러뷰 더미데이터
-    val dummy = arrayListOf<DataClassMypage>(
-        DataClassMypage("비밀번호 변경"),
-        DataClassMypage("회원탈퇴")
+    val dummy = arrayListOf<DataClassNotification>(
+        DataClassNotification("김뫄뫄", "안녕하세요"),
+        DataClassNotification("Franfran", "hello:)")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.msg_list)
+        setContentView(R.layout.notification)
         val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         //리사이클러뷰 어댑터
         //val intent = Intent(this, BoardActivity::class.java)
-        val mAdapter = MypageRvAdapter(this, dummy) {
+        val mAdapter = NotiRvAdapter(this, dummy) {
             //country ->startActivity(intent)}//(Intent(this, BoardActivity::class.java))}
             //country ->
             //intent.putExtra("title", country.countryName)
             //startActivity(intent)
-
         }
-        mypage_rv.adapter = mAdapter
+        noti_rv.adapter = mAdapter
 
         //리사이클러뷰 레이아웃매니저
         val lm = LinearLayoutManager(this)
-        mypage_rv.layoutManager = lm
-        mypage_rv.setHasFixedSize(true)
+        noti_rv.layoutManager = lm
+        noti_rv.setHasFixedSize(true)
     }
 }

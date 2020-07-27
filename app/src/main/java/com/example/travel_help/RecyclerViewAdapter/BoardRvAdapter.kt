@@ -1,4 +1,4 @@
-package com.example.travel_help
+package com.example.travel_help.RecyclerViewAdapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.travel_help.DataClass.DataClassBoard
+import com.example.travel_help.R
 
 class BoardRvAdapter(val context:Context, val list: ArrayList<DataClassBoard>, val itemClick: (DataClassBoard) -> Unit):
     RecyclerView.Adapter<BoardRvAdapter.Holder>() {

@@ -1,4 +1,4 @@
-package com.example.travel_help
+package com.example.travel_help.DataClass
 
 import java.util.*
 

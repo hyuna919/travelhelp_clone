@@ -1,4 +1,4 @@
-package com.example.travel_help
+package com.example.travel_help.RecyclerViewAdapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.travel_help.DataClass.DataClassNotification
+import com.example.travel_help.R
 
 class NotiRvAdapter(val context:Context, val list: ArrayList<DataClassNotification>, val itemClick: (DataClassNotification) -> Unit):
     RecyclerView.Adapter<NotiRvAdapter.Holder>() {
