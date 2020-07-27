@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.travel_help.RecyclerViewAdapter.BoardRvAdapter
 import com.example.travel_help.DataClass.DataClassBoard
+import com.example.travel_help.DataClass.DataClassPost
 import com.example.travel_help.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.board.*
@@ -43,9 +44,9 @@ class BoardActivity : AppCompatActivity() {
 
 
     //리사이클러뷰 더미데이터
-    val dummy = arrayListOf<DataClassBoard>(
-        DataClassBoard("제목1", "내용1"),
-        DataClassBoard("제목2", "내용2")
+    val dummy = arrayListOf<DataClassPost>(
+        DataClassPost("제목333",20200202,"Paris","aaaaaaaaaaaaaaaaaaaaa"),
+        DataClassPost("제목444",10101010,"Tokyo","bbbbbbbbbbbbb")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,18 +66,36 @@ class BoardActivity : AppCompatActivity() {
         })
 
         //리사이클러뷰 어댑터
+        refreshRV(dummy)
+
+
+
+    }
+
+
+
+    fun refreshRV(post:ArrayList<DataClassPost>) {
+
+        //리사이클러뷰 어댑터
         val intent = Intent(this, PostReadActivity::class.java)
-        val mAdapter = BoardRvAdapter(this, dummy) {
-            //country ->startActivity(intent)}//(Intent(this, BoardActivity::class.java))}
-                post ->
-            intent.putExtra("title", post.title)
+        board_rv.adapter = BoardRvAdapter(this, post){
+            post->intent.putExtra("post",post)
             startActivity(intent)
         }
-        board_rv.adapter = mAdapter
 
         //리사이클러뷰 레이아웃매니저
         val lm = LinearLayoutManager(this)
         board_rv.layoutManager = lm
         board_rv.setHasFixedSize(true)
+
+
+
+
+
+
+
+
     }
+
+
 }
