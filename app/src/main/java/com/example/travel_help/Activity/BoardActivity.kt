@@ -41,6 +41,7 @@ class BoardActivity : AppCompatActivity() {
         false
     }
 
+
     //리사이클러뷰 더미데이터
     val dummy = arrayListOf<DataClassBoard>(
         DataClassBoard("제목1", "내용1"),
