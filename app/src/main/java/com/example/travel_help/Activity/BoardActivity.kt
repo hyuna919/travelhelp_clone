@@ -74,11 +74,7 @@ class BoardActivity : AppCompatActivity() {
 
 
         //리사이클러뷰 어댑터
-        val intent = Intent(this, PostReadActivity::class.java)
-        board_rv.adapter = BoardRvAdapter(this, dummy){
-            intent.putExtra("title",dummy[])
-            startActivity(intent)
-        }
+        board_rv.adapter = BoardRvAdapter(this, dummy)
 
 
     }

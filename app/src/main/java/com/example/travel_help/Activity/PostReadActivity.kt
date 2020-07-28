@@ -13,13 +13,13 @@ class PostReadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.post_read)
-        val post = intent.getParcelableExtra<DataClassPost>("post")
+        //val title = intent.getParcelableExtra<DataClassPost>("title")
+        val title = intent.getStringExtra("title")
 
-
-        pr_title?.text = post.title
-        pr_date?.text = post.date.toString()
-        pr_airport?.text = post.airport
-        pr_contents?.text = post.content
+        pr_title?.text = title
+        //pr_date?.text = post.date.toString()
+        //pr_airport?.text = post.airport
+        //pr_contents?.text = post.content
 
     }
 }
