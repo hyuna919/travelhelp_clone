@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.board.*
 
 class BoardActivity : AppCompatActivity() {
     private lateinit var textMessage: TextView
-    private val REQUEST_CODE = 3000
+    private val POST_REQUEST = 3000
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -68,15 +68,38 @@ class BoardActivity : AppCompatActivity() {
         //글 작성 버튼
         board_btn_write.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, PostWriteActivity::class.java)
-            startActivity(intent)
-            //startActivityForResult(intent,REQUEST_CODE)
+            startActivityForResult(intent,POST_REQUEST)
         })
 
         //리사이클러뷰 어댑터
         board_rv.adapter = BoardRvAdapter(this, dummy)
 
 
+
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode==RESULT_OK){
+            when (requestCode) {
+                POST_REQUEST -> {
+                    val title = data?.getStringExtra("title")
+                    val date = data?.getIntExtra("date", -3)!!
+                    val airport = data?.getStringExtra("airport")
+                    val content = data?.getStringExtra("content")
+
+                    dummy.add(DataClassPost(title, date, airport, content))
+                    board_rv.adapter?.notifyDataSetChanged()
+                }
+            }
+        }else{
+            return
+        }
+
+
+    }
+
+
 
 
 }
