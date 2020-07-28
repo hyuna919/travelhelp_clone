@@ -45,7 +45,7 @@ class BoardActivity : AppCompatActivity() {
 
 
     //리사이클러뷰 더미데이터
-    val dummy = arrayListOf<DataClassPost>(
+    var dummy = arrayListOf<DataClassPost>(
         DataClassPost("제목333",20200202,"Paris","aaaaaaaaaaaaaaaaaaaaa"),
         DataClassPost("제목444",10101010,"Tokyo","bbbbbbbbbbbbb")
     )
@@ -87,16 +87,14 @@ class BoardActivity : AppCompatActivity() {
                     val date = data?.getIntExtra("date", -3)!!
                     val airport = data?.getStringExtra("airport")
                     val content = data?.getStringExtra("content")
-
                     dummy.add(DataClassPost(title, date, airport, content))
+
                     board_rv.adapter?.notifyDataSetChanged()
                 }
             }
         }else{
             return
         }
-
-
     }
 
 
