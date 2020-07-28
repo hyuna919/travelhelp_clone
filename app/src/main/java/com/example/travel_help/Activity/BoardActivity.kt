@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.board.*
 
 class BoardActivity : AppCompatActivity() {
     private lateinit var textMessage: TextView
+    private val REQUEST_CODE = 3000
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -55,6 +56,11 @@ class BoardActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
+        //리사이클러뷰 레이아웃매니저
+        val lm = LinearLayoutManager(this)
+        board_rv.layoutManager = lm
+        board_rv.setHasFixedSize(true)
+
         //게시판 이름
         val title = intent.getStringExtra("title")
         board_boardtitle.setText(title)
@@ -63,30 +69,19 @@ class BoardActivity : AppCompatActivity() {
         board_btn_write.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, PostWriteActivity::class.java)
             startActivity(intent)
+            //startActivityForResult(intent,REQUEST_CODE)
         })
 
-        //리사이클러뷰 어댑터
-        refreshRV(dummy)
-
-
-
-    }
-
-
-
-    fun refreshRV(post:ArrayList<DataClassPost>) {
 
         //리사이클러뷰 어댑터
         val intent = Intent(this, PostReadActivity::class.java)
-        board_rv.adapter = BoardRvAdapter(this, post){
-            post->intent.putExtra("post",post)
+        board_rv.adapter = BoardRvAdapter(this, dummy){
+            intent.putExtra("title",dummy[])
             startActivity(intent)
         }
 
-        //리사이클러뷰 레이아웃매니저
-        val lm = LinearLayoutManager(this)
-        board_rv.layoutManager = lm
-        board_rv.setHasFixedSize(true)
+
     }
+
 
 }
