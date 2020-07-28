@@ -39,8 +39,11 @@ class BoardRvAdapter(val context:Context, val list: ArrayList<DataClassPost>):
             content?.text = post.content
             itemView.setOnClickListener(View.OnClickListener {
                 val intent = Intent(context, PostReadActivity::class.java)
-                //intent.putExtra("title",post.title)
-                intent.putExtra("title",list[adapterPosition].title)
+                //intent.putExtra("title",list[adapterPosition].title)
+                intent.putExtra("title",post.title)
+                intent.putExtra("date",post.date)
+                intent.putExtra("airport",post.airport)
+                intent.putExtra("content",post.content)
                 context.startActivity(intent)
             })
         }

@@ -15,11 +15,14 @@ class PostReadActivity : AppCompatActivity() {
         setContentView(R.layout.post_read)
         //val title = intent.getParcelableExtra<DataClassPost>("title")
         val title = intent.getStringExtra("title")
+        val date = intent.getIntExtra("date",-1)
+        val airport = intent.getStringExtra("airport")
+        val content = intent.getStringExtra("content")
 
         pr_title?.text = title
-        //pr_date?.text = post.date.toString()
-        //pr_airport?.text = post.airport
-        //pr_contents?.text = post.content
+        pr_date?.text = date.toString()
+        pr_airport?.text = airport
+        pr_contents?.text = content
 
     }
 }

@@ -72,7 +72,6 @@ class BoardActivity : AppCompatActivity() {
             //startActivityForResult(intent,REQUEST_CODE)
         })
 
-
         //리사이클러뷰 어댑터
         board_rv.adapter = BoardRvAdapter(this, dummy)
 
