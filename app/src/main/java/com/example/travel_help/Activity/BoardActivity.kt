@@ -73,9 +73,6 @@ class BoardActivity : AppCompatActivity() {
 
         //리사이클러뷰 어댑터
         board_rv.adapter = BoardRvAdapter(this, dummy)
-
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
