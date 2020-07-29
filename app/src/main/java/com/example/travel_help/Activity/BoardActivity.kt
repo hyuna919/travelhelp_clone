@@ -16,7 +16,8 @@ import kotlinx.android.synthetic.main.board.*
 
 class BoardActivity : AppCompatActivity() {
     private lateinit var textMessage: TextView
-    private val POST_REQUEST = 3000
+    private val REQUEST_WRITE = 3000
+    private val REQUEST_READ = 1000
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -68,18 +69,27 @@ class BoardActivity : AppCompatActivity() {
         //글 작성 버튼
         board_btn_write.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, PostWriteActivity::class.java)
-            startActivityForResult(intent,POST_REQUEST)
+            startActivityForResult(intent,REQUEST_WRITE)
         })
 
         //리사이클러뷰 어댑터
-        board_rv.adapter = BoardRvAdapter(this, dummy)
+        val intent = Intent(this, PostReadActivity::class.java)
+        val mAdapter = BoardRvAdapter(this, dummy){
+                post -> intent.putExtra("title",post.title)
+            intent.putExtra("date",post.date)
+            intent.putExtra("airport",post.airport)
+            intent.putExtra("content",post.content)
+
+            startActivityForResult(intent,REQUEST_READ)
+        }
+        board_rv.adapter=mAdapter
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode==RESULT_OK){
             when (requestCode) {
-                POST_REQUEST -> {
+                REQUEST_WRITE -> {
                     val title = data?.getStringExtra("title")
                     val date = data?.getIntExtra("date", -3)!!
                     val airport = data?.getStringExtra("airport")
