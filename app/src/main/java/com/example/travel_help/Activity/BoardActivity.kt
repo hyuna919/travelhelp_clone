@@ -3,11 +3,9 @@ package com.example.travel_help.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.travel_help.RecyclerViewAdapter.BoardRvAdapter
-import com.example.travel_help.DataClass.DataClassBoard
 import com.example.travel_help.DataClass.DataClassPost
 import com.example.travel_help.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -15,7 +13,6 @@ import kotlinx.android.synthetic.main.board.*
 
 
 class BoardActivity : AppCompatActivity() {
-    private lateinit var textMessage: TextView
     private val REQUEST_WRITE = 3000
     private val REQUEST_READ = 1000
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -89,36 +86,32 @@ class BoardActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode==RESULT_OK){
             when (requestCode) {
+                //게시글 작성시 rv에 반영
                 REQUEST_WRITE -> {
-                    val title = data?.getStringExtra("title")
-                    val date = data?.getIntExtra("date", -3)!!
-                    val airport = data?.getStringExtra("airport")
-                    val content = data?.getStringExtra("content")
-                    dummy.add(DataClassPost(title, date, airport, content))
-
+                    val newpost = getPostData(data)
+                    dummy.add(newpost)
                     board_rv.adapter?.notifyDataSetChanged()
                 }
+                //게시글 수정시 rv에 반영
                 REQUEST_READ->{
-                    val title = data?.getStringExtra("title")
-                    val date = data?.getIntExtra("date", -3)!!
-                    val airport = data?.getStringExtra("airport")
-                    val content = data?.getStringExtra("content")
+                    val changedpost = getPostData(data)
                     //position값 얻기가 어려워서 게시글제목으로 해당 게시글 수정하게함
                     for((i,post) in dummy.withIndex()){
-                        if(post.title==title) {
-                            dummy[i]=DataClassPost(title, date, airport, content)
+                        if(post.title==changedpost.title) {
+                            dummy[i]=changedpost
                         }
                     }
-
                     board_rv.adapter?.notifyDataSetChanged()
                 }
             }
-        }else{
-            return
         }
     }
 
-
-
-
+    fun getPostData(intent:Intent?):DataClassPost{
+        val title = intent?.getStringExtra("title")
+        val date = intent?.getIntExtra("date", -3)!!
+        val airport = intent?.getStringExtra("airport")
+        val content = intent?.getStringExtra("content")
+        return DataClassPost(title, date, airport, content)
+    }
 }
