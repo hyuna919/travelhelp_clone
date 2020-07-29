@@ -2,6 +2,7 @@ package com.example.travel_help.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,9 @@ class PostWriteActivity :AppCompatActivity(){
             val content = intent.getStringExtra("content")
 
             pwr_title.setText(title)
+            //게시글 수정시 제목수정 불가
+            pwr_title.isFocusable=false
+            pwr_title.isFocusableInTouchMode=false
             pwr_date?.setText(date.toString())
             pwr_airport?.setText(airport)
             pwr_content?.setText(content)

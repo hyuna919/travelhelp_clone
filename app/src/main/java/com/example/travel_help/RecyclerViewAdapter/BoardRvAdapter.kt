@@ -14,6 +14,7 @@ import com.example.travel_help.R
 
 class BoardRvAdapter(val context:Context, val list: ArrayList<DataClassPost>, val itemClick: (DataClassPost) -> Unit):
     RecyclerView.Adapter<BoardRvAdapter.Holder>() {
+    var mem_position=-1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.board_rv, parent, false)
         val holder = Holder(view, itemClick)
@@ -36,6 +37,7 @@ class BoardRvAdapter(val context:Context, val list: ArrayList<DataClassPost>, va
             title?.text = post.title
             content?.text = post.content
             itemView.setOnClickListener{
+                mem_position=adapterPosition
                 itemClick(post)
             }
         }

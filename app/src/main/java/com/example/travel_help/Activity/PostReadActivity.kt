@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.post_read.*
 
 class PostReadActivity : AppCompatActivity() {
     private val POST_CHANGE=2000
+    private var isChanged =false
     private var title:String?=""
     private var date:Int?=-1
     private var airport:String?=""
@@ -38,12 +39,14 @@ class PostReadActivity : AppCompatActivity() {
         })
     }
 
+    //수정후 응답받으면
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode==RESULT_OK){
             when (requestCode) {
                 POST_CHANGE -> {
                     bind(data)
+                    isChanged=true
                 }
             }
         }else{
@@ -61,6 +64,18 @@ class PostReadActivity : AppCompatActivity() {
         pr_date?.text = date.toString()
         pr_airport?.text = airport
         pr_contents?.text = content
+    }
+
+    override fun onBackPressed() {
+        if(isChanged){
+            intent = Intent(this,BoardActivity::class.java)
+            intent.putExtra("title",pr_title.text.toString())
+            intent.putExtra("date", pr_date.text.toString().toInt())
+            intent.putExtra("airport",pr_airport.text.toString())
+            intent.putExtra("content",pr_contents.text.toString())
+            setResult(RESULT_OK,intent)
+        }
+        super.onBackPressed()
     }
 
 }

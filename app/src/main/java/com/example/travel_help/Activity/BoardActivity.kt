@@ -98,6 +98,20 @@ class BoardActivity : AppCompatActivity() {
 
                     board_rv.adapter?.notifyDataSetChanged()
                 }
+                REQUEST_READ->{
+                    val title = data?.getStringExtra("title")
+                    val date = data?.getIntExtra("date", -3)!!
+                    val airport = data?.getStringExtra("airport")
+                    val content = data?.getStringExtra("content")
+                    //position값 얻기가 어려워서 게시글제목으로 해당 게시글 수정하게함
+                    for((i,post) in dummy.withIndex()){
+                        if(post.title==title) {
+                            dummy[i]=DataClassPost(title, date, airport, content)
+                        }
+                    }
+
+                    board_rv.adapter?.notifyDataSetChanged()
+                }
             }
         }else{
             return
