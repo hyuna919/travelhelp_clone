@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.travel_help.DataClass.DataClassPost
 import com.example.travel_help.R
 
-class BoardRvAdapter(val context:Context, val list: ArrayList<DataClassPost>, val itemClick: (DataClassPost) -> Unit):
+class BoardRvAdapter(val context:Context, val list: ArrayList<DataClassPost>, val itemClick: (DataClassPost, position: Int) -> Unit):
     RecyclerView.Adapter<BoardRvAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.board_rv, parent, false)
@@ -23,17 +23,18 @@ class BoardRvAdapter(val context:Context, val list: ArrayList<DataClassPost>, va
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(list[position], context)
+        holder?.bind(list[position], context, position)
     }
 
-    inner class Holder(itemView: View?, itemClick:(DataClassPost)->Unit) : RecyclerView.ViewHolder(itemView!!) {
+    inner class Holder(itemView: View?, itemClick:(DataClassPost, position: Int)->Unit) : RecyclerView.ViewHolder(itemView!!) {
         val title = itemView?.findViewById<TextView>(R.id.board_rv_title)
         val content = itemView?.findViewById<TextView>(R.id.board_rv_content)
-        fun bind(post: DataClassPost, context: Context) {
+
+        fun bind(post: DataClassPost, context: Context, position: Int) {
             title?.text = post.title
             content?.text = post.content
             itemView.setOnClickListener{
-                itemClick(post)
+                itemClick(post, position)
             }
         }
     }

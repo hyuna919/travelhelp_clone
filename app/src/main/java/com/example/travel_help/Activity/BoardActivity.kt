@@ -72,10 +72,12 @@ class BoardActivity : AppCompatActivity() {
         //리사이클러뷰 어댑터
         val intent = Intent(this, PostReadActivity::class.java)
         val mAdapter = BoardRvAdapter(this, dummy){
-                post -> intent.putExtra("title",post.title)
+                post, position -> intent.putExtra("title",post.title)
             intent.putExtra("date",post.date)
             intent.putExtra("airport",post.airport)
             intent.putExtra("content",post.content)
+
+            println(position)
 
             startActivityForResult(intent,REQUEST_READ)
         }
@@ -92,7 +94,7 @@ class BoardActivity : AppCompatActivity() {
                     dummy.add(newpost)
                     board_rv.adapter?.notifyDataSetChanged()
                 }
-                //게시글 수정시 rv에 반영
+                //게시글 수정/삭제시 rv에 반영
                 REQUEST_READ->{
                     val changedpost = getPostData(data)
                     //position값 얻기가 어려워서 게시글제목으로 해당 게시글 수정하게함

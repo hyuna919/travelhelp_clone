@@ -83,6 +83,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.9"/>
 
+    <Button
+            android:id="@+id/pr_btn_delete"
+            android:text="삭제   "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/pr_btn_change"
+            app:layout_constraintBottom_toBottomOf="@+id/pr_btn_change"
+            android:gravity="right|center_vertical"
+            app:layout_constraintEnd_toStartOf="@+id/pr_btn_change"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"/>
+
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
