@@ -1,6 +1,9 @@
 package com.example.travel_help.Activity
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -39,12 +42,32 @@ class PostReadActivity : AppCompatActivity() {
             startActivityForResult(intent,POST_CHANGE)
         })
 
+        //삭제버튼 클릭
         pr_btn_delete.setOnClickListener(View.OnClickListener {
-            isChanged="deleted"
-            val intent = Intent(this,BoardActivity::class.java)
-            intent.putExtra("isChanged",isChanged)
-            setResult(RESULT_OK,intent)
-            finish()
+            var dialog = AlertDialog.Builder(this)
+            dialog.setTitle("게시글 삭제")
+            dialog.setMessage("게시글을 삭제하시겠습니까?")
+
+            fun toast_p() {
+                deletePost()
+            }
+            fun toast_n(){
+            }
+
+            var dialog_listener = object: DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    when(which){
+                        DialogInterface.BUTTON_POSITIVE ->
+                            toast_p()
+                        DialogInterface.BUTTON_NEGATIVE ->
+                            toast_n()
+                    }
+                }
+            }
+
+            dialog.setPositiveButton("YES",dialog_listener)
+            dialog.setNegativeButton("NO",dialog_listener)
+            dialog.show()
         })
     }
 
@@ -61,6 +84,15 @@ class PostReadActivity : AppCompatActivity() {
         }else{
             return
         }
+    }
+
+    //게시글 삭제 다이얼로그에서 삭제 확인시
+    fun deletePost(){
+        isChanged="deleted"
+        val intent = Intent(this,BoardActivity::class.java)
+        intent.putExtra("isChanged",isChanged)
+        setResult(RESULT_OK,intent)
+        finish()
     }
 
 
