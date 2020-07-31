@@ -2,6 +2,7 @@ package com.example.travel_help.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.board.*
 class BoardActivity : AppCompatActivity() {
     private val REQUEST_WRITE = 3000
     private val REQUEST_READ = 1000
+    private var position = -1
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -77,7 +79,7 @@ class BoardActivity : AppCompatActivity() {
             intent.putExtra("airport",post.airport)
             intent.putExtra("content",post.content)
 
-            println(position)
+            this.position = position
 
             startActivityForResult(intent,REQUEST_READ)
         }
@@ -96,12 +98,17 @@ class BoardActivity : AppCompatActivity() {
                 }
                 //게시글 수정/삭제시 rv에 반영
                 REQUEST_READ->{
+                    var post_state = data?.getStringExtra("isChanged")
                     val changedpost = getPostData(data)
-                    //position값 얻기가 어려워서 게시글제목으로 해당 게시글 수정하게함
-                    for((i,post) in dummy.withIndex()){
-                        if(post.title==changedpost.title) {
-                            dummy[i]=changedpost
+                    if(post_state=="changed"){
+                        //position값 얻기가 어려워서 게시글제목으로 해당 게시글 수정하게함
+                        for((i,post) in dummy.withIndex()){
+                            if(post.title==changedpost.title) {
+                                dummy[i]=changedpost
+                            }
                         }
+                    }else if(post_state=="deleted"){
+                        dummy.removeAt(position)
                     }
                     board_rv.adapter?.notifyDataSetChanged()
                 }

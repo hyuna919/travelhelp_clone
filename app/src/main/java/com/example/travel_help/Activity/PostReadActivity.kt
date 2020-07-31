@@ -1,5 +1,6 @@
 package com.example.travel_help.Activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.post_read.*
 
 class PostReadActivity : AppCompatActivity() {
     private val POST_CHANGE=2000
-    private var isChanged =false
+    private var isChanged ="no"     //바뀌지않음:no, 수정됨:changed, 삭제됨:deleted
     private var title:String?=""
     private var date:Int?=-1
     private var airport:String?=""
@@ -37,6 +38,14 @@ class PostReadActivity : AppCompatActivity() {
             intent.putExtra("change",true)
             startActivityForResult(intent,POST_CHANGE)
         })
+
+        pr_btn_delete.setOnClickListener(View.OnClickListener {
+            isChanged="deleted"
+            val intent = Intent(this,BoardActivity::class.java)
+            intent.putExtra("isChanged",isChanged)
+            setResult(RESULT_OK,intent)
+            finish()
+        })
     }
 
     //수정후 응답받으면
@@ -46,13 +55,15 @@ class PostReadActivity : AppCompatActivity() {
             when (requestCode) {
                 POST_CHANGE -> {
                     bind(data)
-                    isChanged=true
+                    isChanged="changed"
                 }
             }
         }else{
             return
         }
     }
+
+
 
     fun bind(intent:Intent?){
         title = intent?.getStringExtra("title")
@@ -67,13 +78,17 @@ class PostReadActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if(isChanged){
+        //게시글이 수정됐으면
+        if(isChanged=="changed"){
             intent = Intent(this,BoardActivity::class.java)
             intent.putExtra("title",pr_title.text.toString())
             intent.putExtra("date", pr_date.text.toString().toInt())
             intent.putExtra("airport",pr_airport.text.toString())
             intent.putExtra("content",pr_contents.text.toString())
+            intent.putExtra("isChanged",isChanged)
             setResult(RESULT_OK,intent)
+        }else{
+            setResult(RESULT_CANCELED,intent)
         }
         super.onBackPressed()
     }
