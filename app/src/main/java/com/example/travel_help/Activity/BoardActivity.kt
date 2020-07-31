@@ -103,9 +103,7 @@ class BoardActivity : AppCompatActivity() {
                     if(post_state=="changed"){
                         //position값 얻기가 어려워서 게시글제목으로 해당 게시글 수정하게함
                         for((i,post) in dummy.withIndex()){
-                            if(post.title==changedpost.title) {
-                                dummy[i]=changedpost
-                            }
+                            dummy[position]=changedpost
                         }
                     }else if(post_state=="deleted"){
                         dummy.removeAt(position)
