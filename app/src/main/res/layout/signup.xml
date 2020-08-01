@@ -4,55 +4,82 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Activity.SignupActivity">
+        android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/board_tb"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
+
     <TextView
+            android:id="@+id/textView"
+            android:text="회원가입"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/board_tb"
+            app:layout_constraintBottom_toBottomOf="@+id/board_tb"
+            app:layout_constraintStart_toStartOf="@+id/board_tb"
+            app:layout_constraintEnd_toEndOf="@+id/board_tb"
+            app:layout_constraintHorizontal_bias="0.2"/>
+
+    <TextView
             android:id="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/board_tb" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/board_tb"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.10" android:layout_marginTop="32dp"/>
+            app:layout_constraintHorizontal_bias="0.10" android:layout_marginTop="32dp"
+            android:text="아이디"
+            app:layout_constraintVertical_bias="0.05"/>
     <EditText
+            android:id="@+id/put_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Name"
             android:ems="10"
-            android:id="@+id/put_id"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="@+id/textView2" app:layout_constraintBottom_toTopOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="@+id/textView2" app:layout_constraintHorizontal_bias="0.0"
             android:hint="ID"/>
     <Button
+            android:id="@+id/bt_check"
             android:text="중복확인"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bt_check" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintTop_toTopOf="@+id/put_id" app:layout_constraintBottom_toBottomOf="@+id/put_id"
             app:layout_constraintStart_toEndOf="@+id/put_id" android:layout_marginStart="8dp"
             android:background="@color/colorYellow"/>
     <TextView
+            android:id="@+id/tv_idcheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/put_id"
+            app:layout_constraintStart_toStartOf="@+id/put_id"
+            android:textColor="@android:color/holo_red_dark" />
+
+
+
+    <TextView
+            android:id="@+id/textView3"
             android:text="비밀번호"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" android:layout_marginTop="148dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.101"/>
+            app:layout_constraintEnd_toEndOf="@+id/board_tb" android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.101"
+            app:layout_constraintVertical_bias="0.2"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,6 +109,15 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toStartOf="@+id/textView4" app:layout_constraintEnd_toEndOf="@+id/textView4"
             app:layout_constraintHorizontal_bias="0.0" android:hint="비밀번호를 입력해주세요"/>
+    <TextView
+            android:id="@+id/tv_pwcheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/put_pw_check"
+            app:layout_constraintStart_toStartOf="@+id/put_pw_check"
+            android:textColor="@android:color/holo_red_dark" />
+
+
     <Button
             android:text="Button"
             android:layout_width="wrap_content"
