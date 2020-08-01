@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
 
-class DataClassPost (val title:String?, val date: Int, val airport: String?, val content: String?):Parcelable {
+data class DataClassPost (val title:String?, val date: Int, val airport: String?, val content: String?):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readInt(),
