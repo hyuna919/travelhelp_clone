@@ -2,6 +2,7 @@ package com.example.travel_help.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.travel_help.R
@@ -39,7 +40,10 @@ class LoginActivity :AppCompatActivity(){
 
         //회원가입 버튼
         bt_signup.setOnClickListener(View.OnClickListener {
+            var keys = accounts.keys.toTypedArray()
+            Log.d("*****************************",keys[0])
             var intent = Intent(this, SignupActivity::class.java)
+            intent.putExtra("id",keys)
             startActivityForResult(intent,SIGNUP_CODE)
         })
     }
