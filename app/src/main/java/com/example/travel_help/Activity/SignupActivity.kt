@@ -1,5 +1,6 @@
 package com.example.travel_help.Activity
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -48,7 +49,11 @@ class SignupActivity : AppCompatActivity() {
             if(checkId){
                 if(uniqId){
                     if(checkPw){
-                        //완료 인텐트
+                        intent = Intent(this,BoardActivity::class.java)
+                        intent.putExtra("id", put_id.text.toString())
+                        intent.putExtra("pw", put_pw.text.toString())
+                        setResult(RESULT_OK,intent)
+                        finish()
                     }else{
                         Toast.makeText(applicationContext, "비밀번호를 확인해주세요.", Toast.LENGTH_LONG).show()
                     }
@@ -71,7 +76,6 @@ class SignupActivity : AppCompatActivity() {
 
         for(list in idList){
             if(list==id){
-                Log.d("-----------------------","ddddddddddddd")
                 put_id.setText(null)
                 tv_idcheck.setText("이미 존재하는 아이디입니다.")
                 tv_idcheck.setTextColor(Color.RED)

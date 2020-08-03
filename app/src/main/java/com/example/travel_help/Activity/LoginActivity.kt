@@ -47,4 +47,20 @@ class LoginActivity :AppCompatActivity(){
             startActivityForResult(intent,SIGNUP_CODE)
         })
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data!!)
+        if(resultCode==RESULT_OK){
+            when (requestCode) {
+                SIGNUP_CODE -> {
+                    val id = data.getStringExtra("id")
+                    val pw = data.getStringExtra("pw")
+                    accounts.putIfAbsent(id,pw)
+                    Log.d("------------------",accounts.toString())
+                }
+            }
+        }else{
+            return
+        }
+    }
 }
