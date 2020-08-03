@@ -80,31 +80,31 @@
             app:layout_constraintHorizontal_bias="0.101"
             app:layout_constraintVertical_bias="0.2"/>
     <EditText
+            android:id="@+id/put_pw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/put_pw"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
             app:layout_constraintStart_toStartOf="@+id/textView3" app:layout_constraintEnd_toEndOf="@+id/textView3"
             app:layout_constraintHorizontal_bias="0.0"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/textView4"
             android:hint="비밀번호를 입력해주세요"/>
     <TextView
+            android:id="@+id/textView4"
             android:text="비밀번호 확인"
             android:layout_width="wrap_content"
             android:layout_height="17dp"
-            android:id="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView3" android:layout_marginTop="60dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintHorizontal_bias="0.10"/>
     <EditText
+            android:id="@+id/put_pw_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/put_pw_check"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toStartOf="@+id/textView4" app:layout_constraintEnd_toEndOf="@+id/textView4"
             app:layout_constraintHorizontal_bias="0.0" android:hint="비밀번호를 입력해주세요"/>
