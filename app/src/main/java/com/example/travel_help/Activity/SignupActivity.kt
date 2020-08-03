@@ -88,7 +88,6 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-
     fun checkPw(pw1:String, pw2:String){
         if(pw1==pw2){
             tv_pwcheck.setText("비밀번호가 일치합니다.")
