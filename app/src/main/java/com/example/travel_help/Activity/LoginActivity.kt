@@ -86,7 +86,6 @@ class LoginActivity :AppCompatActivity(){
 
             //이제 전송해볼까요?
             val requestQueue = Volley.newRequestQueue(this)
-            Log.d("---------------------","11111111")
             val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, url, testjson,
                 Response.Listener { response ->
                     //데이터 전달을 끝내고 이제 그 응답을 받을 차례입니다.
