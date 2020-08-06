@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
@@ -33,17 +34,7 @@ class LoginActivity :AppCompatActivity(){
             var u_id = put_id.text.toString()
             var u_pw = put_pw.text.toString()
 
-            for((id,pw) in accounts){
-                if((u_id==id)&&(u_pw==pw)){
-                    var intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("id",id)
-                    intent.putExtra("pw",pw)
-                    request()
-                    startActivity(intent)
-                    finish()
-                }
-            }
-
+            request(u_id, u_pw)
         })
 
         //회원가입 버튼
@@ -70,14 +61,15 @@ class LoginActivity :AppCompatActivity(){
         }
     }
 
-    fun request() {
+    fun request(id:String, pw:String) {
         val url = "http://172.30.1.44:3000"
+
 
         val testjson = JSONObject()
         try {
-            testjson.put("id", put_id.text.toString())
-            testjson.put("password", put_pw.text.toString())
-            val jsonString = testjson.toString() //완성된 json 포맷
+            testjson.put("id", id)
+            testjson.put("password", pw)
+            val jsonString = testjson.toString()
 
             val requestQueue = Volley.newRequestQueue(this)
             val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, url, testjson,
@@ -90,10 +82,14 @@ class LoginActivity :AppCompatActivity(){
                         val resultId = jsonObject.getString("approve_id")
                         val resultPassword = jsonObject.getString("approve_pw")
 
-                        if ((resultId == "OK") and (resultPassword == "OK")) {
-                            //로그인 성공
-                        } else {
-                            //로그인 실패
+                        if((resultId == "OK") and (resultPassword == "OK")){
+                            var intent = Intent(this, MainActivity::class.java)
+                            intent.putExtra("id", id)
+                            intent.putExtra("pw", pw)
+                            startActivity(intent)
+                            finish()
+                        }else{
+                            Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
                         }
 
                     } catch (e: Exception) {
@@ -104,6 +100,7 @@ class LoginActivity :AppCompatActivity(){
                 Response.ErrorListener { error ->
                     error.printStackTrace()
                 })
+
             jsonObjectRequest.retryPolicy = DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -114,7 +111,6 @@ class LoginActivity :AppCompatActivity(){
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-
     }
 
 }
