@@ -61,8 +61,12 @@ class LoginActivity :AppCompatActivity(){
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     fun request(id:String, pw:String) {
-        val url = "http://172.30.1.44:3000"
+        val url = "http://172.30.1.34:3000/users/mine"
 
 
         val testjson = JSONObject()
@@ -88,6 +92,7 @@ class LoginActivity :AppCompatActivity(){
                             intent.putExtra("pw", pw)
                             startActivity(intent)
                             finish()
+                            Toast.makeText(this, "성공", Toast.LENGTH_SHORT).show()
                         }else{
                             Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
                         }
