@@ -89,7 +89,6 @@ class LoginActivity :AppCompatActivity(){
                         if((resultId == "OK") and (resultPassword == "OK")){
                             var intent = Intent(this, MainActivity::class.java)
                             intent.putExtra("id", id)
-                            intent.putExtra("pw", pw)
                             startActivity(intent)
                             finish()
                             Toast.makeText(this, "성공", Toast.LENGTH_SHORT).show()

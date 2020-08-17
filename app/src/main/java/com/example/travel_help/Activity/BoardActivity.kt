@@ -81,7 +81,8 @@ class BoardActivity : AppCompatActivity() {
 
             this.position = position
 
-            startActivityForResult(intent,REQUEST_READ)
+            //startActivityForResult(intent,REQUEST_READ)
+            startActivity(intent)
         }
         board_rv.adapter=mAdapter
     }
