@@ -4,13 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.example.travel_help.RecyclerViewAdapter.BoardRvAdapter
 import com.example.travel_help.DataClass.DataClassPost
 import com.example.travel_help.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.board.*
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class BoardActivity : AppCompatActivity() {
@@ -50,11 +60,15 @@ class BoardActivity : AppCompatActivity() {
         DataClassPost("제목444",10101010,"Tokyo","bbbbbbbbbbbbb")
     )
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.board)
         val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+
+        request()
 
         //리사이클러뷰 레이아웃매니저
         val lm = LinearLayoutManager(this)
@@ -81,12 +95,55 @@ class BoardActivity : AppCompatActivity() {
 
             this.position = position
 
-            //startActivityForResult(intent,REQUEST_READ)
-            startActivity(intent)
+            startActivityForResult(intent,REQUEST_READ)
+            //startActivity(intent)
         }
         board_rv.adapter=mAdapter
     }
 
+    fun request(){    //게시판 이름받아야
+        val url = "http://172.30.1.34:3000/board"
+
+        try {
+            val requestQueue = Volley.newRequestQueue(this)
+            val jsonArrayRequest = JsonArrayRequest(
+                Request.Method.GET, url, null,
+
+                Response.Listener { response ->
+                    try {
+                        Log.d("---------------------","게시판 불러오기 성공")
+
+                        val jsonArray = JSONArray(response.toString())//JSONObject(response.toString())
+
+//                        for(i in 0..jsonArray.length()-1){
+//                            Log.d("---------------------","1")
+//                            val jsonObject = jsonArray.getJSONObject(i)
+//                            var title = jsonObject.getString("title")
+//                            var content = jsonObject.getString("content")
+//                            //게시판엔 날짜랑 공항정보 필요없으니까
+//                            dummy.add(DataClassPost(title, 0, "",content))
+//                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                },
+
+                Response.ErrorListener { error ->
+                    Log.d("---------------------","err")
+                    error.printStackTrace()
+                })
+
+            jsonArrayRequest.retryPolicy = DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+            )
+            requestQueue.add(jsonArrayRequest)
+            //
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode==RESULT_OK){

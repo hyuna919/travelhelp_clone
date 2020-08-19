@@ -56,7 +56,7 @@ class PostWriteActivity :AppCompatActivity(){
 
             var c_listener = object : DatePickerDialog.OnDateSetListener {
                 override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
-                    pwr_date?.setText(p1.toString()+(p2+1).toString()+p3.toString())
+                    pwr_tv_date?.setText(p1.toString()+(p2+1).toString()+p3.toString())
                 }
             }
 
@@ -75,7 +75,7 @@ class PostWriteActivity :AppCompatActivity(){
             }
 
             val title = pwr_title.text.toString()
-            val date = pwr_date.text.toString().toInt()
+            val date = pwr_tv_date.text.toString().toInt()
             val airport = pwr_airport.text.toString()
             val content = pwr_content.text.toString()
 
@@ -94,7 +94,7 @@ class PostWriteActivity :AppCompatActivity(){
 
         val testjson = JSONObject()
         try {
-            testjson.put("id", "tmp")//세션 만들기 전이라 임시로
+            testjson.put("id", "root")//세션 만들기 전이라 임시로
             testjson.put("title", title)
             testjson.put("date", date)
             testjson.put("airport", airport)
@@ -110,6 +110,7 @@ class PostWriteActivity :AppCompatActivity(){
                         val jsonObject = JSONObject(response.toString())
 
                         val result = jsonObject.getString("approve")
+
 
                         if(result == "OK"){
                             startActivity(intent)
