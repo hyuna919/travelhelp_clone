@@ -97,11 +97,13 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
 
         var list = coroutine()
 
-        Log.d("*********",list.toString())
-        //리사이클러뷰 어댑터
+    }
 
+    //리사이클러뷰 어댑터
+    fun binding(list:ArrayList<DataClassPost>){
+        Log.d("*********",list.toString())
         val intent = Intent(this, PostReadActivity::class.java)
-        val mAdapter = BoardRvAdapter(this@BoardActivity, dummy){
+        val mAdapter = BoardRvAdapter(this@BoardActivity, list){
                 post, position -> intent.putExtra("title",post.title)
             intent.putExtra("date",post.date)
             intent.putExtra("airport",post.airport)
@@ -113,25 +115,20 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
             //startActivity(intent)
         }
         board_rv.adapter=mAdapter
-
-
-
-
-
     }
 
-    fun coroutine():ArrayList<DataClassPost>{
+    fun coroutine(){
         val scope = CoroutineScope(Dispatchers.Main + mJob)
         var list = ArrayList<DataClassPost>()
 
-        scope.launch {
-            var job = launch{
+        scope.launch(Dispatchers.Main) {
+            var job = withContext(coroutineContext){
                 list=request()
             }
-            job.join()
+            //job.join()
+            binding(list)
             Log.d("22222222222",list.toString())
         }
-        return list
     }
 
     private suspend fun request() = suspendCoroutine<ArrayList<DataClassPost>>{
