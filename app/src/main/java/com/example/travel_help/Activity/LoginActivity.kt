@@ -71,8 +71,10 @@ class LoginActivity :AppCompatActivity(){
 
         val testjson = JSONObject()
         try {
-            testjson.put("id", id)
-            testjson.put("password", pw)
+//            testjson.put("id", id)
+//            testjson.put("password", pw)
+            testjson.put("id", "root")
+            testjson.put("password", 1234)
             val jsonString = testjson.toString()
 
             val requestQueue = Volley.newRequestQueue(this)

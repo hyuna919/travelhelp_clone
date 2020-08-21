@@ -18,15 +18,24 @@ import com.example.travel_help.DataClass.DataClassPost
 import com.example.travel_help.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.board.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.suspendCoroutine
 
 
-class BoardActivity : AppCompatActivity() {
+class BoardActivity : AppCompatActivity(), CoroutineScope {
     private val REQUEST_WRITE = 3000
     private val REQUEST_READ = 1000
-    private var position = -1
+    var position = -1
+    private lateinit var mJob: Job
+
+    override val coroutineContext: CoroutineContext
+        get() = mJob + Dispatchers.Main
+
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -67,13 +76,9 @@ class BoardActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
+        mJob = Job()
 
-        request()
 
-        //리사이클러뷰 레이아웃매니저
-        val lm = LinearLayoutManager(this)
-        board_rv.layoutManager = lm
-        board_rv.setHasFixedSize(true)
 
         //게시판 이름
         val title = intent.getStringExtra("title")
@@ -85,51 +90,80 @@ class BoardActivity : AppCompatActivity() {
             startActivityForResult(intent,REQUEST_WRITE)
         })
 
+        //리사이클러뷰 레이아웃매니저
+        val lm = LinearLayoutManager(this)
+        board_rv.layoutManager = lm
+        board_rv.setHasFixedSize(true)
+
+        var list = coroutine()
+
+        Log.d("*********",list.toString())
         //리사이클러뷰 어댑터
+
         val intent = Intent(this, PostReadActivity::class.java)
-        val mAdapter = BoardRvAdapter(this, dummy){
+        val mAdapter = BoardRvAdapter(this@BoardActivity, dummy){
                 post, position -> intent.putExtra("title",post.title)
             intent.putExtra("date",post.date)
             intent.putExtra("airport",post.airport)
             intent.putExtra("content",post.content)
 
-            this.position = position
+            //this.position = position
 
             startActivityForResult(intent,REQUEST_READ)
             //startActivity(intent)
         }
         board_rv.adapter=mAdapter
+
+
+
+
+
     }
 
-    fun request(){    //게시판 이름받아야
-        val url = "http://172.30.1.34:3000/board"
+    fun coroutine():ArrayList<DataClassPost>{
+        val scope = CoroutineScope(Dispatchers.Main + mJob)
+        var list = ArrayList<DataClassPost>()
 
+        scope.launch {
+            var job = launch{
+                list=request()
+            }
+            job.join()
+            Log.d("22222222222",list.toString())
+        }
+        return list
+    }
+
+    private suspend fun request() = suspendCoroutine<ArrayList<DataClassPost>>{
+    //private fun request():ArrayList<DataClassPost>{
+        val url = "http://172.30.1.34:3000/board"
+        var list = ArrayList<DataClassPost>()
         try {
-            val requestQueue = Volley.newRequestQueue(this)
+            val requestQueue = Volley.newRequestQueue(this@BoardActivity)
             val jsonArrayRequest = JsonArrayRequest(
                 Request.Method.GET, url, null,
 
                 Response.Listener { response ->
                     try {
                         Log.d("---------------------","게시판 불러오기 성공")
-
+                        //var list = ArrayList<DataClassPost>()
                         val jsonArray = JSONArray(response.toString())//JSONObject(response.toString())
 
-//                        for(i in 0..jsonArray.length()-1){
-//                            Log.d("---------------------","1")
-//                            val jsonObject = jsonArray.getJSONObject(i)
-//                            var title = jsonObject.getString("title")
-//                            var content = jsonObject.getString("content")
-//                            //게시판엔 날짜랑 공항정보 필요없으니까
-//                            dummy.add(DataClassPost(title, 0, "",content))
-//                        }
+                        for(i in 0..jsonArray.length()-1){
+                            val jsonObject = jsonArray.getJSONObject(i)
+                            var title = jsonObject.getString("title")
+                            var content = jsonObject.getString("content")
+                            //게시판엔 날짜랑 공항정보 필요없으니까
+                            list.add(DataClassPost(title, 0, "",content))
+                        }
+                        Log.d("-------------",list.toString())
+                        it.resumeWith(Result.success(list))
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
                 },
 
                 Response.ErrorListener { error ->
-                    Log.d("---------------------","err")
                     error.printStackTrace()
                 })
 
@@ -141,9 +175,12 @@ class BoardActivity : AppCompatActivity() {
             requestQueue.add(jsonArrayRequest)
             //
         } catch (e: JSONException) {
+            Log.d("에러에러에러","확인")
             e.printStackTrace()
         }
+        //return list
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode==RESULT_OK){
@@ -155,19 +192,19 @@ class BoardActivity : AppCompatActivity() {
                     board_rv.adapter?.notifyDataSetChanged()
                 }
                 //게시글 수정/삭제시 rv에 반영
-                REQUEST_READ->{
-                    var post_state = data?.getStringExtra("isChanged")
-                    val changedpost = getPostData(data)
-                    if(post_state=="changed"){
-                        //position값 얻기가 어려워서 게시글제목으로 해당 게시글 수정하게함
-                        for((i,post) in dummy.withIndex()){
-                            dummy[position]=changedpost
-                        }
-                    }else if(post_state=="deleted"){
-                        dummy.removeAt(position)
-                    }
-                    board_rv.adapter?.notifyDataSetChanged()
-                }
+//                REQUEST_READ->{
+//                    var post_state = data?.getStringExtra("isChanged")
+//                    val changedpost = getPostData(data)
+//                    if(post_state=="changed"){
+//                        //position값 얻기가 어려워서 게시글제목으로 해당 게시글 수정하게함
+//                        for((i,post) in dummy.withIndex()){
+//                            dummy[position]=changedpost
+//                        }
+//                    }else if(post_state=="deleted"){
+//                        dummy.removeAt(position)
+//                    }
+//                    board_rv.adapter?.notifyDataSetChanged()
+//                }
             }
         }
     }
@@ -178,5 +215,10 @@ class BoardActivity : AppCompatActivity() {
         val airport = intent?.getStringExtra("airport")
         val content = intent?.getStringExtra("content")
         return DataClassPost(title, date, airport, content)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mJob.cancel()
     }
 }
