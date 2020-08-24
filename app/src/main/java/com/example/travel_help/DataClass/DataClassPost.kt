@@ -4,12 +4,14 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
 
-data class DataClassPost (val title:String?, val date: Int, val airport: String?, val content: String?):Parcelable {
+data class DataClassPost (val title:String?, val date: Int, val airport: String?, val content: String?, val writer_id: String?, val createdAt: Int):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readInt(),
         parcel.readString(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readInt()
     ) {
     }
 
@@ -18,6 +20,8 @@ data class DataClassPost (val title:String?, val date: Int, val airport: String?
         parcel.writeInt(date)
         parcel.writeString(airport)
         parcel.writeString(content)
+        parcel.writeString(writer_id)
+        parcel.writeInt(createdAt)
     }
 
     override fun describeContents(): Int {
@@ -33,4 +37,5 @@ data class DataClassPost (val title:String?, val date: Int, val airport: String?
             return arrayOfNulls(size)
         }
     }
+
 }

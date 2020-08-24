@@ -106,6 +106,8 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
                 intent.putExtra("date",post.date)
                 intent.putExtra("airport",post.airport)
                 intent.putExtra("content",post.content)
+                intent.putExtra("writer_id",post.content)
+                intent.putExtra("createdAt:",post.content)
 
             //this.position = position
 
@@ -143,10 +145,12 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
                         for(i in 0..jsonArray.length()-1){
                             val jsonObject = jsonArray.getJSONObject(i)
                             var title = jsonObject.getString("title")
-                            var content = jsonObject.getString("content")
+                            var date = jsonObject.getString("date")
                             var airport = jsonObject.getString("airport")
-                            //게시판엔 날짜랑 공항정보 필요없으니까
-                            list.add(DataClassPost(title, 0, airport,content))
+                            var content = jsonObject.getString("content")
+                            var writer_id = jsonObject.getString("airport")
+                            var createdAt = jsonObject.getString("createdAt")
+                            list.add(DataClassPost(title, date.toInt(), airport,content,writer_id,createdAt.toInt()))
                         }
                         it.resumeWith(Result.success(list))
                     } catch (e: Exception) {
@@ -177,12 +181,13 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
             when (requestCode) {
                 //게시글 작성시 rv에 반영
                 REQUEST_WRITE -> {
-                    val newpost = getPostData(data)
+                    //val newpost = getPostData(data)
                     //dummy.add(newpost)
                     board_rv.adapter?.notifyDataSetChanged()
                 }
                 //게시글 수정/삭제시 rv에 반영
-//                REQUEST_READ->{
+               REQUEST_READ->{
+                   board_rv.adapter?.notifyDataSetChanged()
 //                    var post_state = data?.getStringExtra("isChanged")
 //                    val changedpost = getPostData(data)
 //                    if(post_state=="changed"){
@@ -194,18 +199,18 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
 //                        dummy.removeAt(position)
 //                    }
 //                    board_rv.adapter?.notifyDataSetChanged()
-//                }
+                }
             }
         }
     }
 
-    fun getPostData(intent:Intent?):DataClassPost{
-        val title = intent?.getStringExtra("title")
-        val date = intent?.getIntExtra("date", -3)!!
-        val airport = intent?.getStringExtra("airport")
-        val content = intent?.getStringExtra("content")
-        return DataClassPost(title, date, airport, content)
-    }
+//    fun getPostData(intent:Intent?):DataClassPost{
+//        val title = intent?.getStringExtra("title")
+//        val date = intent?.getIntExtra("date", -3)!!
+//        val airport = intent?.getStringExtra("airport")
+//        val content = intent?.getStringExtra("content")
+//        return DataClassPost(title, date, airport, content)
+//    }
 
 
     override fun onDestroy() {

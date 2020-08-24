@@ -8,11 +8,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.travel_help.DataClass.DataClassPost
 import com.example.travel_help.R
 import kotlinx.android.synthetic.main.board.*
 import kotlinx.android.synthetic.main.post_read.*
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class PostReadActivity : AppCompatActivity() {
@@ -123,6 +131,60 @@ class PostReadActivity : AppCompatActivity() {
             setResult(RESULT_CANCELED,intent)
         }
         super.onBackPressed()
+    }
+
+    fun request(intent:Intent, title:String, date:Int, airport:String, content:String) {
+        val url = "http://172.30.1.34:3000/posts/deletePost"
+
+
+        val testjson = JSONObject()
+        try {
+            testjson.put("id", "root")//세션 만들기 전이라 임시로
+            testjson.put("title", title)
+            testjson.put("date", date)
+            testjson.put("airport", airport)
+            testjson.put("content", content)
+            val jsonString = testjson.toString()
+
+            val requestQueue = Volley.newRequestQueue(this)
+            val stringRequest = StringRequest(
+                Request.Method.POST, url,
+                Response.Listener { response ->
+                    try {
+                        Log.d("---------------------","게시글전송 성공")
+
+                        val jsonObject = JSONObject(response.toString())
+
+                        val result = jsonObject.getString("approve")
+
+
+                        if(result == "OK"){
+                            startActivity(intent)
+                            finish()
+                            Toast.makeText(this, "성공", Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+                        }
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                },
+
+                Response.ErrorListener { error ->
+                    error.printStackTrace()
+                })
+
+            stringRequest.retryPolicy = DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+            )
+            requestQueue.add(stringRequest)
+            //
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
     }
 
 }
