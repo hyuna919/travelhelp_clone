@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +11,6 @@ import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.travel_help.RecyclerViewAdapter.BoardRvAdapter
 import com.example.travel_help.DataClass.DataClassPost
@@ -20,10 +18,8 @@ import com.example.travel_help.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.board.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.suspendCoroutine
 
@@ -64,23 +60,12 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
     }
 
 
-    //리사이클러뷰 더미데이터
-    var dummy = arrayListOf<DataClassPost>(
-        DataClassPost("제목333",20200202,"Paris","aaaaaaaaaaaaaaaaaaaaa"),
-        DataClassPost("제목444",10101010,"Tokyo","bbbbbbbbbbbbb")
-    )
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.board)
         board_rv.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
         val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
-        mJob = Job()
-
-
 
         //게시판 이름
         val title = intent.getStringExtra("title")
@@ -97,13 +82,12 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
         board_rv.layoutManager = lm
         board_rv.setHasFixedSize(true)
 
-        var list = coroutine()
+        coroutine()
 
     }
 
     //리사이클러뷰 어댑터
     fun binding(list:ArrayList<DataClassPost>){
-        Log.d("*********",list.toString())
         val intent = Intent(this, PostReadActivity::class.java)
         val mAdapter = BoardRvAdapter(this@BoardActivity, list){
                 post, position -> intent.putExtra("title",post.title)
@@ -120,16 +104,14 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
     }
 
     fun coroutine(){
-        val scope = CoroutineScope(Dispatchers.Main + mJob)
+        val scope = CoroutineScope(Dispatchers.Main)
         var list = ArrayList<DataClassPost>()
 
         scope.launch(Dispatchers.Main) {
-            var job = withContext(coroutineContext){
+            withContext(coroutineContext){
                 list=request()
             }
-            //job.join()
             binding(list)
-            Log.d("22222222222",list.toString())
         }
     }
 
@@ -144,8 +126,6 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
 
                 Response.Listener { response ->
                     try {
-                        Log.d("---------------------","게시판 불러오기 성공")
-                        //var list = ArrayList<DataClassPost>()
                         val jsonArray = JSONArray(response.toString())//JSONObject(response.toString())
 
                         for(i in 0..jsonArray.length()-1){
@@ -156,7 +136,6 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
                             //게시판엔 날짜랑 공항정보 필요없으니까
                             list.add(DataClassPost(title, 0, airport,content))
                         }
-                        Log.d("-------------",list.toString())
                         it.resumeWith(Result.success(list))
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -178,7 +157,6 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
             Log.d("에러에러에러","확인")
             e.printStackTrace()
         }
-        //return list
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -188,7 +166,7 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
                 //게시글 작성시 rv에 반영
                 REQUEST_WRITE -> {
                     val newpost = getPostData(data)
-                    dummy.add(newpost)
+                    //dummy.add(newpost)
                     board_rv.adapter?.notifyDataSetChanged()
                 }
                 //게시글 수정/삭제시 rv에 반영
