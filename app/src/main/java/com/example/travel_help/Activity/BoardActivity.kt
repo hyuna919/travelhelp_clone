@@ -64,12 +64,24 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.board)
         board_rv.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+
         val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         //게시판 이름
         val title = intent.getStringExtra("title")
         board_boardtitle.setText(title)
+
+        //당겨서 새로고침
+        board_swipe.setOnRefreshListener{
+            coroutine()
+            board_swipe.isRefreshing = false
+        }
+
+        //새로고침 버튼
+        board_btn_refresh.setOnClickListener(View.OnClickListener{
+            coroutine()
+        })
 
         //글 작성 버튼
         board_btn_write.setOnClickListener(View.OnClickListener {
@@ -194,6 +206,7 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
         val content = intent?.getStringExtra("content")
         return DataClassPost(title, date, airport, content)
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
