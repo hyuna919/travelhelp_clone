@@ -10,20 +10,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.10"/>
+            app:layout_constraintHorizontal_bias="0.10"
+            android:text="제목"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginTop="8dp"/>
 
     <TextView
-            android:id="@+id/board_rv_content"
+            android:id="@+id/board_rv_airport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/board_rv_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/board_rv_title"
-            app:layout_constraintEnd_toEndOf="@id/board_rv_title"
-            app:layout_constraintHorizontal_bias="0.00"
-    />
+            android:text="[공항]"
+            android:layout_marginBottom="8dp"/>
+
+    <TextView
+            android:id="@+id/board_rv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/board_rv_airport"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/board_rv_airport"
+            android:text="내용"
+            android:layout_marginBottom="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

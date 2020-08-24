@@ -29,10 +29,12 @@ class BoardRvAdapter(val context:Context, val list: ArrayList<DataClassPost>, va
     inner class Holder(itemView: View?, itemClick:(DataClassPost, position: Int)->Unit) : RecyclerView.ViewHolder(itemView!!) {
         val title = itemView?.findViewById<TextView>(R.id.board_rv_title)
         val content = itemView?.findViewById<TextView>(R.id.board_rv_content)
+        val airport = itemView?.findViewById<TextView>(R.id.board_rv_airport)
 
         fun bind(post: DataClassPost, context: Context, position: Int) {
             title?.text = post.title
             content?.text = post.content
+            airport?.text = "["+post.airport+"]"
             itemView.setOnClickListener{
                 itemClick(post, position)
             }

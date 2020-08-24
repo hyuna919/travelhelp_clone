@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
@@ -73,6 +74,7 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.board)
+        board_rv.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
         val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
@@ -105,9 +107,9 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
         val intent = Intent(this, PostReadActivity::class.java)
         val mAdapter = BoardRvAdapter(this@BoardActivity, list){
                 post, position -> intent.putExtra("title",post.title)
-            intent.putExtra("date",post.date)
-            intent.putExtra("airport",post.airport)
-            intent.putExtra("content",post.content)
+                intent.putExtra("date",post.date)
+                intent.putExtra("airport",post.airport)
+                intent.putExtra("content",post.content)
 
             //this.position = position
 
@@ -150,8 +152,9 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
                             val jsonObject = jsonArray.getJSONObject(i)
                             var title = jsonObject.getString("title")
                             var content = jsonObject.getString("content")
+                            var airport = jsonObject.getString("airport")
                             //게시판엔 날짜랑 공항정보 필요없으니까
-                            list.add(DataClassPost(title, 0, "",content))
+                            list.add(DataClassPost(title, 0, airport,content))
                         }
                         Log.d("-------------",list.toString())
                         it.resumeWith(Result.success(list))

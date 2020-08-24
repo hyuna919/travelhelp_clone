@@ -13,6 +13,7 @@ import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.travel_help.DataClass.DataClassPost
 import com.example.travel_help.R
@@ -51,7 +52,6 @@ class PostWriteActivity :AppCompatActivity(){
             var year = calendar.get(Calendar.YEAR)
             var month = calendar.get(Calendar.MONTH)
             var day = calendar.get(Calendar.DAY_OF_MONTH)
-
 
 
             var c_listener = object : DatePickerDialog.OnDateSetListener {
@@ -102,7 +102,7 @@ class PostWriteActivity :AppCompatActivity(){
             val jsonString = testjson.toString()
 
             val requestQueue = Volley.newRequestQueue(this)
-            val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, url, testjson,
+            val stringRequest = StringRequest(Request.Method.POST, url,
                 Response.Listener { response ->
                     try {
                         Log.d("---------------------","게시글전송 성공")
@@ -129,12 +129,12 @@ class PostWriteActivity :AppCompatActivity(){
                     error.printStackTrace()
                 })
 
-            jsonObjectRequest.retryPolicy = DefaultRetryPolicy(
+            stringRequest.retryPolicy = DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
             )
-            requestQueue.add(jsonObjectRequest)
+            requestQueue.add(stringRequest)
             //
         } catch (e: JSONException) {
             e.printStackTrace()
