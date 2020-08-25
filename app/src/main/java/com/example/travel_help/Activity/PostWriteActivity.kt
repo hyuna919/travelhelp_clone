@@ -102,15 +102,13 @@ class PostWriteActivity :AppCompatActivity(){
             val jsonString = testjson.toString()
 
             val requestQueue = Volley.newRequestQueue(this)
-            val stringRequest = StringRequest(Request.Method.POST, url,
+            val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, url, testjson,
                 Response.Listener { response ->
                     try {
                         Log.d("---------------------","게시글전송 성공")
 
                         val jsonObject = JSONObject(response.toString())
-
-                        val result = jsonObject.getString("approve")
-
+                        val result = jsonObject.getString("response")
 
                         if(result == "OK"){
                             startActivity(intent)
@@ -129,12 +127,12 @@ class PostWriteActivity :AppCompatActivity(){
                     error.printStackTrace()
                 })
 
-            stringRequest.retryPolicy = DefaultRetryPolicy(
+            jsonObjectRequest.retryPolicy = DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
             )
-            requestQueue.add(stringRequest)
+            requestQueue.add(jsonObjectRequest)
             //
         } catch (e: JSONException) {
             e.printStackTrace()
