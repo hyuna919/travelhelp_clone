@@ -56,7 +56,7 @@ class PostWriteActivity :AppCompatActivity(){
 
             var c_listener = object : DatePickerDialog.OnDateSetListener {
                 override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
-                    pwr_tv_date?.setText(p1.toString()+(p2+1).toString()+p3.toString())
+                    pwr_tv_date?.setText(p1.toString()+"-"+(p2+1).toString()+"-"+p3.toString())
                 }
             }
 
@@ -75,9 +75,10 @@ class PostWriteActivity :AppCompatActivity(){
             }
 
             val title = pwr_title.text.toString()
-            val date = pwr_tv_date.text.toString().toInt()
+            val date = pwr_tv_date.text.toString()
             val airport = pwr_airport.text.toString()
             val content = pwr_content.text.toString()
+
 
             request(intent, title, date, airport, content)
 
@@ -88,7 +89,7 @@ class PostWriteActivity :AppCompatActivity(){
 
     }
 
-    fun request(intent:Intent, title:String, date:Int, airport:String, content:String) {
+    fun request(intent:Intent, title:String, date:String, airport:String, content:String) {
         val url = "http://172.30.1.34:3000/posts/writePost"
 
 

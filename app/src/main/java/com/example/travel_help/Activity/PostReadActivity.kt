@@ -27,7 +27,7 @@ class PostReadActivity : AppCompatActivity() {
     private val POST_CHANGE=2000
     private var isChanged ="no"     //바뀌지않음:no, 수정됨:changed, 삭제됨:deleted
     private var title:String?=""
-    private var date:Int?=-1
+    private var date:String?=""
     private var airport:String?=""
     private var content :String?=""
 
@@ -107,12 +107,12 @@ class PostReadActivity : AppCompatActivity() {
 
     fun bind(intent:Intent?){
         title = intent?.getStringExtra("title")
-        date = intent?.getIntExtra("date",-3)
+        date = intent?.getStringExtra("date")
         airport = intent?.getStringExtra("airport")
         content = intent?.getStringExtra("content")
 
         pr_title?.text = title
-        pr_date?.text = date.toString()
+        pr_date?.text = date
         pr_airport?.text = airport
         pr_contents?.text = content
     }
@@ -122,7 +122,7 @@ class PostReadActivity : AppCompatActivity() {
         if(isChanged=="changed"){
             intent = Intent(this,BoardActivity::class.java)
             intent.putExtra("title",pr_title.text.toString())
-            intent.putExtra("date", pr_date.text.toString().toInt())
+            intent.putExtra("date", pr_date.text.toString())
             intent.putExtra("airport",pr_airport.text.toString())
             intent.putExtra("content",pr_contents.text.toString())
             intent.putExtra("isChanged",isChanged)
@@ -133,7 +133,7 @@ class PostReadActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    fun request(intent:Intent, title:String, date:Int, airport:String, content:String) {
+    fun request(intent:Intent, title:String, date:String, airport:String, content:String) {
         val url = "http://172.30.1.34:3000/posts/deletePost"
 
 

@@ -150,7 +150,7 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
                             var content = jsonObject.getString("content")
                             var writer_id = jsonObject.getString("airport")
                             var createdAt = jsonObject.getString("createdAt")
-                            list.add(DataClassPost(title, date.toInt(), airport,content,writer_id,createdAt.toInt()))
+                            list.add(DataClassPost(title, date, airport,content,writer_id,createdAt))
                         }
                         it.resumeWith(Result.success(list))
                     } catch (e: Exception) {

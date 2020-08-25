@@ -42,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/pr_title" app:layout_constraintStart_toStartOf="@+id/pr_title"
-            app:layout_constraintEnd_toEndOf="@+id/pr_title" android:layout_marginTop="16dp" android:inputType="date"/>
+            app:layout_constraintEnd_toEndOf="@+id/pr_title" android:layout_marginTop="16dp"/>
     <TextView
             android:id="@+id/pr_airport"
             android:text="TextView"
