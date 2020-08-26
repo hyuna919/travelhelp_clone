@@ -19,11 +19,6 @@ import org.json.JSONObject
 class LoginActivity :AppCompatActivity(){
     private val SIGNUP_CODE = 100
 
-    var accounts = mutableMapOf<String, String>(
-        "root" to "1234",
-        "guest" to "5678"
-    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
@@ -39,34 +34,18 @@ class LoginActivity :AppCompatActivity(){
 
         //회원가입 버튼
         bt_signup.setOnClickListener(View.OnClickListener {
-            var keys = accounts.keys.toTypedArray()
             var intent = Intent(this, SignupActivity::class.java)
-            intent.putExtra("id",keys)
-            startActivityForResult(intent,SIGNUP_CODE)
+            startActivity(intent)
         })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data!!)
-        if(resultCode==RESULT_OK){
-            when (requestCode) {
-                SIGNUP_CODE -> {
-                    val id = data.getStringExtra("id")
-                    val pw = data.getStringExtra("pw")
-                    accounts.putIfAbsent(id,pw)
-                }
-            }
-        }else{
-            return
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
     }
 
     fun request(id:String, pw:String) {
-        val url = "http://172.30.1.34:3000/users/mine"
+        val url = "http://172.30.1.34:3000/users/login"
 
 
         val testjson = JSONObject()
@@ -86,9 +65,9 @@ class LoginActivity :AppCompatActivity(){
                         val jsonObject = JSONObject(response.toString())
 
                         val resultId = jsonObject.getString("approve_id")
-                        val resultPassword = jsonObject.getString("approve_pw")
+                        val resultPassword = "OK"//jsonObject.getString("approve_pw")
 
-                        if((resultId == "OK") and (resultPassword == "OK")){
+                        if(resultId == "OK"){
                             var intent = Intent(this, MainActivity::class.java)
                             intent.putExtra("id", id)
                             startActivity(intent)
