@@ -15,6 +15,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.travel_help.App
 import com.example.travel_help.DataClass.DataClassPost
 import com.example.travel_help.R
 import kotlinx.android.synthetic.main.post_read.*
@@ -95,12 +96,14 @@ class PostWriteActivity :AppCompatActivity(){
 
         val testjson = JSONObject()
         try {
-            testjson.put("id", "root")//세션 만들기 전이라 임시로
+            val tmp = App.prefs.getString("token","fail")
+            testjson.put("accessToken", tmp)
             testjson.put("title", title)
             testjson.put("date", date)
             testjson.put("airport", airport)
             testjson.put("content", content)
-            val jsonString = testjson.toString()
+
+            Log.d("++++++++++++++++",tmp)
 
             val requestQueue = Volley.newRequestQueue(this)
             val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, url, testjson,
