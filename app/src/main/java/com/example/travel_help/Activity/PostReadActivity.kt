@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.travel_help.App
@@ -138,20 +139,21 @@ class PostReadActivity : AppCompatActivity() {
 
     fun del_request(post_id:String?) {
         val url = "http://172.30.1.34:3000/posts/deletePost"
-
+        Log.d("---------------------","삭제 시도")
 
         val testjson = JSONObject()
         try {
-            testjson.put("accessToken", App.prefs.getString("token","fail"))//세션 만들기 전이라 임시로
+            val tmp =App.prefs.getString("token","aa")
+            testjson.put("accessToken", tmp)//세션 만들기 전이라 임시로
             testjson.put("id", post_id)
-            val jsonString = testjson.toString()
+            Log.d("---------------------",tmp)
 
             val requestQueue = Volley.newRequestQueue(this)
-            val stringRequest = StringRequest(
-                Request.Method.POST, url,
+            val jsonObjectRequest = JsonObjectRequest(
+                Request.Method.POST, url, testjson,
                 Response.Listener { response ->
                     try {
-                        Log.d("---------------------","삭제 성공")
+                        Log.d("00000000000000","삭제 성공")
 
                         val jsonObject = JSONObject(response.toString())
 
@@ -174,12 +176,12 @@ class PostReadActivity : AppCompatActivity() {
                     error.printStackTrace()
                 })
 
-            stringRequest.retryPolicy = DefaultRetryPolicy(
+            jsonObjectRequest.retryPolicy = DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
             )
-            requestQueue.add(stringRequest)
+            requestQueue.add(jsonObjectRequest)
             //
         } catch (e: JSONException) {
             e.printStackTrace()
