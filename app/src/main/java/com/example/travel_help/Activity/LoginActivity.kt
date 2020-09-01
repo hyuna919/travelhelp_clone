@@ -1,5 +1,6 @@
 package com.example.travel_help.Activity
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +12,13 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.travel_help.App
 import com.example.travel_help.R
 import kotlinx.android.synthetic.main.login.*
 import org.json.JSONException
 import org.json.JSONObject
 
-class LoginActivity :AppCompatActivity(){
-    private val SIGNUP_CODE = 100
+class LoginActivity :AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,13 +48,10 @@ class LoginActivity :AppCompatActivity(){
     fun request(id:String, pw:String) {
         val url = "http://172.30.1.34:3000/users/login"
 
-
         val testjson = JSONObject()
         try {
-//            testjson.put("id", id)
-//            testjson.put("password", pw)
             testjson.put("id", "root")
-            testjson.put("password", 1234)
+            testjson.put("password", "1234")
             val jsonString = testjson.toString()
 
             val requestQueue = Volley.newRequestQueue(this)
@@ -64,10 +62,11 @@ class LoginActivity :AppCompatActivity(){
 
                         val jsonObject = JSONObject(response.toString())
 
-                        val resultId = jsonObject.getString("approve_id")
-                        val resultPassword = "OK"//jsonObject.getString("approve_pw")
+                        App.prefs.setString("token",jsonObject.getString("token"))
 
-                        if(resultId == "OK"){
+                        val a = App.prefs.getString("token","aa")
+
+                        if(a != null){
                             var intent = Intent(this, MainActivity::class.java)
                             intent.putExtra("id", id)
                             startActivity(intent)

@@ -15,6 +15,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.travel_help.App
 import com.example.travel_help.DataClass.DataClassPost
 import com.example.travel_help.R
 import kotlinx.android.synthetic.main.board.*
@@ -57,7 +58,8 @@ class PostReadActivity : AppCompatActivity() {
             dialog.setMessage("게시글을 삭제하시겠습니까?")
 
             fun toast_p() {
-                deletePost()
+                val post_id = intent?.getStringExtra("post_id")
+                deletePost(post_id)
             }
             fun toast_n(){
             }
@@ -94,8 +96,9 @@ class PostReadActivity : AppCompatActivity() {
         }
     }
 
-    //게시글 삭제 다이얼로그에서 삭제 확인시
-    fun deletePost(){
+    //게시글 삭제 다이얼로그에서 사용자가 삭제 동의시
+    fun deletePost(post_id:String?){
+        del_request(post_id)
         isChanged="deleted"
         val intent = Intent(this,BoardActivity::class.java)
         intent.putExtra("isChanged",isChanged)
@@ -133,17 +136,14 @@ class PostReadActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    fun request(intent:Intent, title:String, date:String, airport:String, content:String) {
+    fun del_request(post_id:String?) {
         val url = "http://172.30.1.34:3000/posts/deletePost"
 
 
         val testjson = JSONObject()
         try {
-            testjson.put("id", "root")//세션 만들기 전이라 임시로
-            testjson.put("title", title)
-            testjson.put("date", date)
-            testjson.put("airport", airport)
-            testjson.put("content", content)
+            testjson.put("accessToken", App.prefs.getString("token","fail"))//세션 만들기 전이라 임시로
+            testjson.put("id", post_id)
             val jsonString = testjson.toString()
 
             val requestQueue = Volley.newRequestQueue(this)
@@ -151,7 +151,7 @@ class PostReadActivity : AppCompatActivity() {
                 Request.Method.POST, url,
                 Response.Listener { response ->
                     try {
-                        Log.d("---------------------","게시글전송 성공")
+                        Log.d("---------------------","삭제 성공")
 
                         val jsonObject = JSONObject(response.toString())
 
@@ -159,7 +159,6 @@ class PostReadActivity : AppCompatActivity() {
 
 
                         if(result == "OK"){
-                            startActivity(intent)
                             finish()
                             Toast.makeText(this, "성공", Toast.LENGTH_SHORT).show()
                         }else{

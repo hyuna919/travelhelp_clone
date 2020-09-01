@@ -102,7 +102,8 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
     fun binding(list:ArrayList<DataClassPost>){
         val intent = Intent(this, PostReadActivity::class.java)
         val mAdapter = BoardRvAdapter(this@BoardActivity, list){
-                post, position -> intent.putExtra("title",post.title)
+                post, position -> intent.putExtra("post_id",post.post_id)
+                intent.putExtra("title",post.title)
                 intent.putExtra("date",post.date)
                 intent.putExtra("airport",post.airport)
                 intent.putExtra("content",post.content)
@@ -144,13 +145,14 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
 
                         for(i in 0..jsonArray.length()-1){
                             val jsonObject = jsonArray.getJSONObject(i)
+                            var id = jsonObject.getString("id")
                             var title = jsonObject.getString("title")
                             var date = jsonObject.getString("date")
                             var airport = jsonObject.getString("airport")
                             var content = jsonObject.getString("content")
                             var writer_id = jsonObject.getString("airport")
                             var createdAt = jsonObject.getString("createdAt")
-                            list.add(DataClassPost(title, date, airport,content,writer_id,createdAt))
+                            list.add(DataClassPost(id, title, date, airport,content,writer_id,createdAt))
                         }
                         it.resumeWith(Result.success(list))
                     } catch (e: Exception) {
