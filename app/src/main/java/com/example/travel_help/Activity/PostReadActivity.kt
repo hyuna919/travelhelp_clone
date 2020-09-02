@@ -28,6 +28,7 @@ import org.json.JSONObject
 class PostReadActivity : AppCompatActivity() {
     private val POST_CHANGE=2000
     private var isChanged ="no"     //바뀌지않음:no, 수정됨:changed, 삭제됨:deleted
+    private var post_id:String?=""
     private var title:String?=""
     private var date:String?=""
     private var airport:String?=""
@@ -43,6 +44,7 @@ class PostReadActivity : AppCompatActivity() {
         //글 수정 버튼
         pr_btn_change.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, PostWriteActivity::class.java)
+            intent.putExtra("post_id",post_id)
             intent.putExtra("title",title)
             intent.putExtra("date",date)
             intent.putExtra("airport",airport)
@@ -110,6 +112,7 @@ class PostReadActivity : AppCompatActivity() {
 
 
     fun bind(intent:Intent?){
+        post_id = intent?.getStringExtra("post_id")
         title = intent?.getStringExtra("title")
         date = intent?.getStringExtra("date")
         airport = intent?.getStringExtra("airport")
@@ -187,5 +190,4 @@ class PostReadActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
-
 }
