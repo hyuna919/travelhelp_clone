@@ -59,7 +59,6 @@ class LoginActivity :AppCompatActivity() {
                 Response.Listener { response ->
                     try {
                         Log.d("---------------------","데이터전송 성공")
-
                         val jsonObject = JSONObject(response.toString())
 
                         App.prefs.setString("token",jsonObject.getString("token"))
