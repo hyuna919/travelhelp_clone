@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
@@ -74,13 +75,13 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
 
         //당겨서 새로고침
         board_swipe.setOnRefreshListener{
-            coroutine()
+            //coroutine()
             board_swipe.isRefreshing = false
         }
 
         //새로고침 버튼
         board_btn_refresh.setOnClickListener(View.OnClickListener{
-            coroutine()
+            //coroutine()
         })
 
         //글 작성 버튼
@@ -93,8 +94,25 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
         val lm = LinearLayoutManager(this)
         board_rv.layoutManager = lm
         board_rv.setHasFixedSize(true)
+        board_rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
 
-        coroutine()
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastPosition = (board_rv.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                val totalCount = board_rv.adapter!!.itemCount
+                Log.d("------lastPosition---",lastPosition.toString())
+                Log.d("------totalCount---",totalCount.toString())
+
+                if (lastPosition+1 == totalCount) {
+                    coroutine(lastPosition)
+                }
+            }
+        })
+        coroutine(-1)
 
     }
 
@@ -118,21 +136,21 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
         board_rv.adapter=mAdapter
     }
 
-    fun coroutine(){
+    fun coroutine(key:Int){
         val scope = CoroutineScope(Dispatchers.Main)
         var list = ArrayList<DataClassPost>()
-
-        scope.launch(Dispatchers.Main) {
-            withContext(coroutineContext){
-                list=request()
-            }
+        //var a = key
+        scope.launch(Dispatchers.IO) {
+            async(coroutineContext){
+                list=request(key)
+            }.await()
             binding(list)
         }
     }
 
-    private suspend fun request() = suspendCoroutine<ArrayList<DataClassPost>>{
+    private suspend fun request(key:Int) = suspendCoroutine<ArrayList<DataClassPost>>{
     //private fun request():ArrayList<DataClassPost>{
-        val url = "http://172.30.1.34:3000/board"
+        val url = "http://172.30.1.34:3000/board/$key/10"
         var list = ArrayList<DataClassPost>()
         try {
             val requestQueue = Volley.newRequestQueue(this@BoardActivity)
