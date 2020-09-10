@@ -82,9 +82,9 @@ class PostWriteActivity :AppCompatActivity(){
     fun request(title:String, date:String, airport:String, content:String, post_id:String) {    //post_id 0:등록, 0이 아니면:수정
         lateinit var url:String
         if(post_id=="0"){   //등록
-            url = "http://172.30.1.34:3000/posts/writePost"
+            url = "http://172.30.1.45:3000/posts/writePost"
         }else{              //수정
-            url = "http://172.30.1.34:3000/posts/updatePost"
+            url = "http://172.30.1.45:3000/posts/updatePost"
         }
 
 

@@ -30,6 +30,7 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
     private val REQUEST_READ = 1000
     var position = -1
     private lateinit var mJob: Job
+    var list = ArrayList<DataClassPost>()
 
     override val coroutineContext: CoroutineContext
         get() = mJob + Dispatchers.Main
@@ -116,6 +117,24 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
 
     }
 
+    fun coroutine(key:Int){
+        val scope = CoroutineScope(Dispatchers.Main)
+
+        scope.launch(Dispatchers.Main) {
+            async(coroutineContext){
+                if(list != null){
+                    list.addAll(request(key))
+                    Log.d("adddddd","ddddd")
+                }else{
+                    list=request(key)
+                    Log.d("newwwww","ddddd")
+                }
+
+            }.await()
+            binding(list)
+        }
+    }
+
     //리사이클러뷰 어댑터
     fun binding(list:ArrayList<DataClassPost>){
         val intent = Intent(this, PostReadActivity::class.java)
@@ -136,21 +155,10 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
         board_rv.adapter=mAdapter
     }
 
-    fun coroutine(key:Int){
-        val scope = CoroutineScope(Dispatchers.Main)
-        var list = ArrayList<DataClassPost>()
-        //var a = key
-        scope.launch(Dispatchers.IO) {
-            async(coroutineContext){
-                list=request(key)
-            }.await()
-            binding(list)
-        }
-    }
 
     private suspend fun request(key:Int) = suspendCoroutine<ArrayList<DataClassPost>>{
     //private fun request():ArrayList<DataClassPost>{
-        val url = "http://172.30.1.34:3000/board/$key/10"
+        val url = "http://172.30.1.45:3000/board/$key/10"
         var list = ArrayList<DataClassPost>()
         try {
             val requestQueue = Volley.newRequestQueue(this@BoardActivity)
