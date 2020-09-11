@@ -29,7 +29,7 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
     private val REQUEST_WRITE = 3000
     private val REQUEST_READ = 1000
     var position = -1
-    private lateinit var mJob: Job
+    private var mJob= Job()
     var list = ArrayList<DataClassPost>()
     private lateinit var mAdapter: BoardRvAdapter
 
