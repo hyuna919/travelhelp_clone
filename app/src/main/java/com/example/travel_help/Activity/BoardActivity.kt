@@ -31,6 +31,7 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
     var position = -1
     private lateinit var mJob: Job
     var list = ArrayList<DataClassPost>()
+    private lateinit var mAdapter: BoardRvAdapter
 
     override val coroutineContext: CoroutineContext
         get() = mJob + Dispatchers.Main
@@ -91,6 +92,20 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
             startActivityForResult(intent,REQUEST_WRITE)
         })
 
+        //리사이클러뷰 어댑터
+        val intent = Intent(this, PostReadActivity::class.java)
+        mAdapter = BoardRvAdapter(){ post, position -> intent.putExtra("post_id",post.post_id)
+            intent.putExtra("title",post.title)
+            intent.putExtra("date",post.date)
+            intent.putExtra("airport",post.airport)
+            intent.putExtra("content",post.content)
+            intent.putExtra("writer_id",post.content)
+            intent.putExtra("createdAt:",post.content)
+
+            startActivityForResult(intent,REQUEST_READ)
+        }
+        board_rv.adapter=mAdapter
+
         //리사이클러뷰 레이아웃매니저
         val lm = LinearLayoutManager(this)
         board_rv.layoutManager = lm
@@ -137,23 +152,11 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
 
     //리사이클러뷰 어댑터
     fun binding(list:ArrayList<DataClassPost>){
-        val intent = Intent(this, PostReadActivity::class.java)
-        val mAdapter = BoardRvAdapter(this@BoardActivity, list){
-                post, position -> intent.putExtra("post_id",post.post_id)
-                intent.putExtra("title",post.title)
-                intent.putExtra("date",post.date)
-                intent.putExtra("airport",post.airport)
-                intent.putExtra("content",post.content)
-                intent.putExtra("writer_id",post.content)
-                intent.putExtra("createdAt:",post.content)
+        mAdapter.setPosts(list)
 
-            //this.position = position
-
-            startActivityForResult(intent,REQUEST_READ)
-            //startActivity(intent)
-        }
-        board_rv.adapter=mAdapter
     }
+
+
 
 
     private suspend fun request(key:Int) = suspendCoroutine<ArrayList<DataClassPost>>{
