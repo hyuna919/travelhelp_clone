@@ -161,7 +161,7 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
 
     private suspend fun request(key:Int) = suspendCoroutine<ArrayList<DataClassPost>>{
     //private fun request():ArrayList<DataClassPost>{
-        val url = "http://172.30.1.45:3000/board/$key/10"
+        val url = "http://172.30.1.1:3000/board/$key/10"
         var list = ArrayList<DataClassPost>()
         try {
             val requestQueue = Volley.newRequestQueue(this@BoardActivity)
