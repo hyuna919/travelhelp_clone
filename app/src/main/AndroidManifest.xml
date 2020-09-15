@@ -22,6 +22,7 @@
         <activity android:name=".Activity.MypageActivity"/>
         <activity android:name=".Activity.PostReadActivity"/>
         <activity android:name=".Activity.PostWriteActivity"/>
+        <activity android:name=".Activity.ChatActivity"/>
         <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

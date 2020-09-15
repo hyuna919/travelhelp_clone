@@ -2,6 +2,7 @@ package com.example.travel_help.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -67,5 +68,12 @@ class MsgListActivity : AppCompatActivity() {
         val lm = LinearLayoutManager(this)
         msg_list_rv.layoutManager = lm
         msg_list_rv.setHasFixedSize(true)
+
+
+        //임시 버튼
+        button.setOnClickListener(View.OnClickListener {
+            val intent =Intent(this, ChatActivity::class.java)
+            startActivity(intent)
+        })
     }
 }

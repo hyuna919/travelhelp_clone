@@ -62,6 +62,7 @@ class LoginActivity :AppCompatActivity() {
                         val jsonObject = JSONObject(response.toString())
 
                         App.prefs.setString("token",jsonObject.getString("token"))
+                        App.prefs.setString("id",jsonObject.getString("id"))
 
                         val a = App.prefs.getString("token","aa")
 
