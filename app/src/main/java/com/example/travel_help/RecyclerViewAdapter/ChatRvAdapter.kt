@@ -48,22 +48,22 @@ class ChatRvAdapter(val context: Context, val chatList: ArrayList<DataClassChatt
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is Holder_User){
-            (holder as Holder_User).date?.setText(chatList.get(position).time)
+            (holder as Holder_User).time?.setText(chatList.get(position).time)
             (holder as Holder_User).msg?.setText(chatList.get(position).message)
         }else if(holder is Holder_Other){
-            (holder as Holder_Other).date?.setText(chatList.get(position).time)
+            (holder as Holder_Other).time?.setText(chatList.get(position).time)
             (holder as Holder_Other).msg?.setText(chatList.get(position).message)
         }
     }
 
     inner class Holder_User(itemView: View?, itemClick:(DataClassChatting)->Unit) : RecyclerView.ViewHolder(itemView!!) {
-        val date = itemView?.findViewById<TextView>(R.id.date)
+        val time = itemView?.findViewById<TextView>(R.id.time)
         val msg = itemView?.findViewById<TextView>(R.id.msg)
 
     }
 
     inner class Holder_Other(itemView: View?, itemClick:(DataClassChatting)->Unit) : RecyclerView.ViewHolder(itemView!!) {
-        val date = itemView?.findViewById<TextView>(R.id.date)
+        val time = itemView?.findViewById<TextView>(R.id.time)
         val msg = itemView?.findViewById<TextView>(R.id.msg)
 
     }
