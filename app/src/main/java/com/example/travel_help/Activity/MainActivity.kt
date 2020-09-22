@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.travel_help.DataClass.DataClassCountry
+import com.example.travel_help.DataClass.DataClassSchedule
 import com.example.travel_help.RecyclerViewAdapter.MainRvAdapter
 import com.example.travel_help.R
+import com.example.travel_help.RecyclerViewAdapter.ScheduleRvAdapter
 import kotlinx.android.synthetic.main.main.*
 
 
@@ -47,6 +49,11 @@ class MainActivity : AppCompatActivity() {
         DataClassCountry("France")
     )
 
+    val scheduleLIst = arrayListOf<DataClassSchedule>(
+        DataClassSchedule("프랑스", "20200919","20200925"),
+        DataClassSchedule("이탈리아", "20200926","20201006")
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
@@ -54,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
 
-        //리사이클러뷰 어댑터
+        // 게시판리사이클러뷰 어댑터
         val intent = Intent(this, BoardActivity::class.java)
         val mAdapter = MainRvAdapter(this, countryList) {
             //country ->startActivity(intent)}//(Intent(this, BoardActivity::class.java))}
@@ -62,12 +69,27 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("title", country.countryName)
             startActivity(intent)
         }
-        main_rv.adapter = mAdapter
+        rv_country.adapter = mAdapter
 
-        //리사이클러뷰 레이아웃매니저
+        //게시판 리사이클러뷰 레이아웃매니저
         val lm = LinearLayoutManager(this)
-        main_rv.layoutManager = lm
-        main_rv.setHasFixedSize(true)
+        rv_country.layoutManager = lm
+        rv_country.setHasFixedSize(true)
+
+        // 스케쥴 리사이클러뷰 어댑터
+        val s_intent = Intent(this, BoardActivity::class.java)
+        val s_mAdapter = ScheduleRvAdapter(this, scheduleLIst) {
+            //country ->startActivity(intent)}//(Intent(this, BoardActivity::class.java))}
+                country ->
+            //s_intent.putExtra("title", country.countryName)
+            startActivity(s_intent)
+        }
+        rv_schedule.adapter = s_mAdapter
+
+        //스케쥴 리사이클러뷰 레이아웃매니저
+        val s_lm = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
+        rv_schedule.layoutManager = s_lm
+        rv_schedule.setHasFixedSize(true)
 
         //임시 버튼 연결
         /*

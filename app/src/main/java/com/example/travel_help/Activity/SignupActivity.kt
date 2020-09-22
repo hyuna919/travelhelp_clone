@@ -87,7 +87,7 @@ class SignupActivity : AppCompatActivity(), CoroutineScope {
 
 
     fun iDCheckRequest(id:String) {
-        val url = "http://172.30.1.34:3000/users/signup/checkId"
+        val url = "http://172.30.1.1:3000/users/signup/checkId"
 
         val testjson = JSONObject()
         try {
@@ -136,7 +136,7 @@ class SignupActivity : AppCompatActivity(), CoroutineScope {
     }
 
     fun signupRequest(id:String, pw:String) {
-        val url = "http://172.30.1.34:3000/users/signup"
+        val url = "http://172.30.1.1:3000/users/signup"
 
         val testjson = JSONObject()
         try {

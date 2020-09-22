@@ -15,7 +15,7 @@
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/colorYellow"
-            app:layout_constraintHeight_percent="0.4">
+            app:layout_constraintHeight_percent="0.6">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -33,60 +33,34 @@
                     app:layout_constraintHorizontal_bias="0.1"
                     android:textColor="@color/colorWhite"
                     android:textSize="30dp"
-                    android:textStyle="bold"/>
-
-            <TextView
-                    android:id="@+id/Textview1"
-                    android:text="도착 공항"
+                    android:textStyle="bold" app:layout_constraintVertical_bias="0.32"/>
+            <Button
+                    android:id="@+id/btn_calendar"
+                    android:text="Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tv_name"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    android:textColor="@color/colorWhite"/>
-            <TextView
-                    android:id="@+id/tv_airport"
-                    android:text="도착지를 입력해주세요"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@+id/Textview1"
-                    app:layout_constraintBottom_toBottomOf="@+id/Textview1"
-                    app:layout_constraintStart_toEndOf="@+id/Textview1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    android:textColor="@color/colorWhite"/>
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintVertical_bias="0.05"/>
 
-            <TextView
-                    android:id="@+id/Textview2"
-                    android:text="도착 날짜"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/Textview1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/Textview1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintVertical_bias="0.1"
-                    android:textColor="@color/colorWhite"/>
-            <TextView
-                    android:id="@+id/tv_date"
-                    android:text="도착일을 입력해주세요"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@+id/Textview2"
-                    app:layout_constraintBottom_toBottomOf="@+id/Textview2"
-                    app:layout_constraintStart_toEndOf="@+id/Textview2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    android:textColor="@color/colorWhite"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.9" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_rv"
+            android:id="@+id/rv_country"
             android:layout_width="200dp"
             android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
