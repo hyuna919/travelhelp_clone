@@ -51,7 +51,8 @@ class MainActivity : AppCompatActivity() {
 
     val scheduleLIst = arrayListOf<DataClassSchedule>(
         DataClassSchedule("프랑스", "20200919","20200925"),
-        DataClassSchedule("이탈리아", "20200926","20201006")
+        DataClassSchedule("이탈리아", "20200926","20201006"),
+        DataClassSchedule("터키", "20201007","20201018")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         rv_schedule.adapter = s_mAdapter
 
         //스케쥴 리사이클러뷰 레이아웃매니저
-        val s_lm = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
+        val s_lm = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_schedule.layoutManager = s_lm
         rv_schedule.setHasFixedSize(true)
 

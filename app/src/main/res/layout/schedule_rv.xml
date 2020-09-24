@@ -3,15 +3,15 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/container"
-        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
 
     <androidx.cardview.widget.CardView
             android:id="@+id/cv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -20,9 +20,9 @@
             app:layout_constraintVertical_bias="0.8"
             app:layout_constraintWidth_percent="0.5"
             app:layout_constraintHeight_percent="0.4"
-            android:layout_marginStart="8dp"
             card_view:cardCornerRadius="10dp"
-            android:elevation = "10dp">
+            app:cardUseCompatPadding="true"
+            app:cardElevation="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -35,19 +35,29 @@
                     android:text="파리"
 
                     card_view:layout_constraintTop_toTopOf="parent"
-                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintBottom_toTopOf="@id/view"
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintHorizontal_bias="0.1"
                     card_view:layout_constraintVertical_bias="0.1"/>
 
+
+            <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/colorBlack"
+                    app:layout_constraintTop_toBottomOf="@id/tv_city"
+                    app:layout_constraintBottom_toTopOf="@id/tv_start"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
             <TextView
                     android:id="@+id/tv_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="20200919"
 
-                    card_view:layout_constraintTop_toBottomOf="@+id/tv_city"
+                    card_view:layout_constraintTop_toBottomOf="@id/tv_city"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +73,6 @@
                     card_view:layout_constraintTop_toTopOf="@+id/tv_start"
                     card_view:layout_constraintBottom_toBottomOf="@+id/tv_start"
                     card_view:layout_constraintStart_toEndOf="@+id/tv_start"
-                    card_view:layout_constraintHorizontal_bias="0.1"
                     card_view:layout_constraintVertical_bias="0.1"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
