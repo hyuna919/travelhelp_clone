@@ -28,11 +28,11 @@ class ScheduleRvAdapter(val context:Context, val schedule: ArrayList<DataClassSc
     inner class Holder(itemView: View?, itemClick:(DataClassSchedule)->Unit) : RecyclerView.ViewHolder(itemView!!) {
         val city = itemView?.findViewById<TextView>(R.id.tv_city)
         val date_start = itemView?.findViewById<TextView>(R.id.tv_start)
-        val date_end = itemView?.findViewById<TextView>(R.id.tv_end)
+        //val date_end = itemView?.findViewById<TextView>(R.id.tv_end)
         fun bind(item: DataClassSchedule, context: Context) {
             city?.text = item.city
             date_start?.text = item.date_start
-            date_end?.text = item.date_end
+            //date_end?.text = item.date_end
 
             itemView.setOnClickListener{itemClick(item)}
         }
