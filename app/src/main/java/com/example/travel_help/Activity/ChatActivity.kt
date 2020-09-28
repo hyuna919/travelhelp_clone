@@ -14,6 +14,7 @@ import com.github.nkzawa.emitter.Emitter
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import kotlinx.android.synthetic.main.chat.*
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -118,21 +119,34 @@ class ChatActivity: Activity() {
         })
     }
 
-    internal var onNewUser: Emitter.Listener = Emitter.Listener { args ->
+    internal var onNewUser: Emitter.Listener = Emitter.Listener { args->
         runOnUiThread(Runnable {
-//            val length = args.size
-//
-//            if (length == 0) {
-//                return@Runnable
-//            }
-            //Here i'm getting weird error..................///////run :1 and run: 0
-            var username = args[0].toString()
-            Log.d("------------",username)
+            val datalist = args[0] as JSONArray
+            var roomNumber: String
+            var sender: String
+            var receiver: String
+            var date: String
+            var time: String
+            var message: String
             try {
-                val `object` = JSONObject(username)
-                username = `object`.getString("username")
+                for(i in 0..datalist.length()-1) {
+                    var data = datalist[i] as JSONObject
+                    roomNumber = "abc_root"
+                    sender = data.getString("sender")
+                    receiver = data.getString("receiver")
+                    date = data.getString("date")
+                    time = data.getString("time")
+                    message = data.getString("message")
+
+
+                    val format = DataClassChatting(roomNumber, sender, receiver, date, time, message)
+                    mAdapter.addItem(format)
+                    mAdapter.notifyDataSetChanged()
+                }
+
             } catch (e: JSONException) {
                 e.printStackTrace()
+                return@Runnable
             }
 
         })

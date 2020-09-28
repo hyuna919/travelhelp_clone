@@ -49,7 +49,7 @@ class LoginActivity :AppCompatActivity() {
 
         val testjson = JSONObject()
         try {
-            testjson.put("id", "root")
+            testjson.put("id", "abc")
             testjson.put("password", "1234")
             val jsonString = testjson.toString()
 
