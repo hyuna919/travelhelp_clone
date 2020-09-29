@@ -3,5 +3,9 @@
     <color name="colorYellow">#FFC107</color>
     <color name="colorGray">#969595</color>
     <color name="colorBlack">#1A1919</color>
+    <color name="colorTransBlack">#801A1919</color>
     <color name="colorWhite">#fffff5</color>
+    <color name="colorRealWhite">#ffffff</color>
+    <color name="colorTransWhite">#80ffffff</color>
+    <color name="colorPink">#FF7C95</color>
 </resources>
