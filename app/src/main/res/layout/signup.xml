@@ -4,127 +4,166 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/board_tb"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:theme="?attr/actionBarTheme"
-            android:minHeight="?attr/actionBarSize"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
 
     <TextView
             android:id="@+id/textView"
-            android:text="회원가입"
+            android:text="환영합니다!"
+            android:textColor="@color/colorWhite"
+            android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/board_tb"
-            app:layout_constraintBottom_toBottomOf="@+id/board_tb"
-            app:layout_constraintStart_toStartOf="@+id/board_tb"
-            app:layout_constraintEnd_toEndOf="@+id/board_tb"
-            app:layout_constraintHorizontal_bias="0.2"/>
-
-    <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/board_tb"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.10" android:layout_marginTop="32dp"
-            android:text="아이디"
-            app:layout_constraintVertical_bias="0.05"/>
-    <EditText
-            android:id="@+id/put_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintEnd_toEndOf="@+id/textView2" app:layout_constraintHorizontal_bias="0.0"
-            android:hint="ID"/>
-    <Button
-            android:id="@+id/bt_check"
-            android:text="중복확인"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintTop_toTopOf="@+id/put_id" app:layout_constraintBottom_toBottomOf="@+id/put_id"
-            app:layout_constraintStart_toEndOf="@+id/put_id" android:layout_marginStart="8dp"
-            android:background="@color/colorYellow"/>
-    <TextView
-            android:id="@+id/tv_idcheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/put_id"
-            app:layout_constraintStart_toStartOf="@+id/put_id" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0.1"/>
 
-
-
-    <TextView
-            android:id="@+id/textView3"
-            android:text="비밀번호"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/board_tb" android:layout_marginEnd="8dp"
+    <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="380dp"
+            android:layout_height="0dp"
+            android:background="@drawable/round_corner_10dp"
+            android:backgroundTint="@color/colorWhite"
+            android:elevation="10dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.101"
-            app:layout_constraintVertical_bias="0.2"/>
-    <EditText
-            android:id="@+id/put_pw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:layout_constraintStart_toStartOf="@+id/textView3" app:layout_constraintEnd_toEndOf="@+id/textView3"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/textView4"
-            android:hint="비밀번호를 입력해주세요"/>
-    <TextView
-            android:id="@+id/textView4"
-            android:text="비밀번호 확인"
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" android:layout_marginTop="60dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.10"/>
-    <EditText
-            android:id="@+id/put_pw_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:layout_constraintStart_toStartOf="@+id/textView4" app:layout_constraintEnd_toEndOf="@+id/textView4"
-            app:layout_constraintHorizontal_bias="0.0" android:hint="비밀번호를 입력해주세요"/>
-    <TextView
-            android:id="@+id/tv_pwcheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/put_pw_check"
-            app:layout_constraintStart_toStartOf="@+id/put_pw_check" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintVertical_bias="0.9">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="아이디"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/et_id"
+                    app:layout_constraintLeft_toLeftOf="@id/et_id"
+                    app:layout_constraintRight_toLeftOf="@id/tv_idcheck"
+                    app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.2"/>
+            <EditText
+                    android:id="@+id/et_id"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:hint="ID"
+                    app:layout_constraintTop_toBottomOf="@id/textView2"
+                    app:layout_constraintBottom_toTopOf="@id/bt_check"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
+            <Button
+                    android:id="@+id/bt_check"
+                    android:text="중복확인"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/border"
+                    android:backgroundTint="@color/colorTransBlack"
+                    app:layout_constraintTop_toBottomOf="@id/et_id"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/et_id"
+                    app:layout_constraintRight_toRightOf="@id/et_id"/>
+
+            <TextView
+                    android:id="@+id/tv_idcheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/textView2"
+                    app:layout_constraintBottom_toBottomOf="@id/textView2"
+                    app:layout_constraintLeft_toRightOf="@id/textView2"
+                    android:layout_marginLeft="8dp" />
 
 
-    <Button
-            android:id="@+id/btn_finish"
-            android:text="완료"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@color/colorYellow"/>
+            <TextView
+                    android:id="@+id/textView3"
+                    android:text="비밀번호"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/et_pw"
+                    app:layout_constraintLeft_toLeftOf="@id/et_pw"
+                    app:layout_constraintRight_toRightOf="@id/et_pw"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintVertical_bias="0.6"/>
+            <EditText
+                    android:id="@+id/et_pw"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:inputType="textPassword"
+                    android:hint="비밀번호를 입력해주세요"
+                    android:ems="10"
+                    app:layout_constraintTop_toBottomOf="@id/textView3"
+                    app:layout_constraintBottom_toTopOf="@id/textView4"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                    android:id="@+id/textView4"
+                    android:text="비밀번호 확인"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/et_pw"
+                    app:layout_constraintBottom_toTopOf="@id/et_pw_check"
+                    app:layout_constraintLeft_toLeftOf="@id/et_pw_check"
+                    app:layout_constraintRight_toRightOf="@id/et_pw_check"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintHorizontal_bias="0.0"/>
+            <EditText
+                    android:id="@+id/et_pw_check"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:inputType="textPassword"
+                    android:ems="10"
+                    android:hint="비밀번호를 입력해주세요"
+                    app:layout_constraintTop_toBottomOf="@id/textView4"
+                    app:layout_constraintBottom_toTopOf="@id/tv_pwcheck"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                    android:id="@+id/tv_pwcheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/et_pw_check"
+                    app:layout_constraintBottom_toTopOf="@id/btn_finish"
+                    app:layout_constraintLeft_toLeftOf="@id/et_pw_check"
+                    app:layout_constraintVertical_bias="1.0"/>
+
+            <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/colorTransBlack"
+                    app:layout_constraintBottom_toTopOf="@id/btn_finish"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+            />
+            <Button
+                    android:id="@+id/btn_finish"
+                    android:text="완료"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintVertical_bias="1.0"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

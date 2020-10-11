@@ -6,26 +6,29 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activity.MainActivity">
+        tools:context=".Activity.MainActivity"
+        android:background="@color/colorWhite">
 
 
     <FrameLayout
             android:id="@+id/framelayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@drawable/round_corner_bottom_color"
+
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/colorYellow"
             app:layout_constraintHeight_percent="0.6">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" >
 
             <TextView
                     android:id="@+id/tv_name"
-                    android:text="조현아"
+                    android:text="조현아님 \n즐거운 여행되세요"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/air"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -35,17 +38,41 @@
                     android:textSize="30dp"
                     android:textStyle="bold" app:layout_constraintVertical_bias="0.32"/>
 
-            <Button
+            <ImageButton
                     android:id="@+id/btn_calendar"
-                    android:text="Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxHeight="35dp"
+                    android:maxWidth="35dp"
+                    android:src="@drawable/calendar"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:background="#00000000"
+                    android:tint="@color/colorWhite"
+                    app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintRight_toLeftOf="@id/btn_setting"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0.95"
                     app:layout_constraintVertical_bias="0.05"/>
+
+            <ImageButton
+                    android:id="@+id/btn_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="35dp"
+                    android:maxWidth="35dp"
+                    android:src="@drawable/ic_setting"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:background="#00000000"
+                    android:tint="@color/colorWhite"
+                    app:layout_constraintTop_toTopOf="@id/btn_calendar"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_calendar"
+                    app:layout_constraintLeft_toRightOf="@id/btn_calendar"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginLeft="20dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_schedule"
@@ -65,22 +92,24 @@
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_country"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/board_nav_view" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/framelayout"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/board_nav_view"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
+            app:menu="@menu/bottom_nav_menu"
+            app:backgroundTint="@color/colorWhite"
+            android:elevation="10dp"
+            app:elevation="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:menu="@menu/bottom_nav_menu">
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+            app:layout_constraintRight_toRightOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

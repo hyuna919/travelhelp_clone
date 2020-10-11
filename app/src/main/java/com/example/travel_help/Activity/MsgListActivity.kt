@@ -29,11 +29,6 @@ class MsgListActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            R.id.navigation_mypage -> {
-                val intent = Intent(this, MypageActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
         }
         false
     }
@@ -64,11 +59,5 @@ class MsgListActivity : AppCompatActivity() {
         msg_list_rv.layoutManager = lm
         msg_list_rv.setHasFixedSize(true)
 
-
-//        //임시 버튼
-//        button.setOnClickListener(View.OnClickListener {
-//            val intent =Intent(this, ChatActivity::class.java)
-//            startActivity(intent)
-//        })
     }
 }

@@ -53,11 +53,6 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
                 startActivity(intent)
                 finish()
             }
-            R.id.navigation_mypage -> {
-                val intent = Intent(this, MypageActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
         }
         false
     }
@@ -73,7 +68,7 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
 
         //게시판 이름
         val title = intent.getStringExtra("title")
-        board_boardtitle.setText(title)
+        tv_boardtitle.setText(title)
 
         //당겨서 새로고침
         board_swipe.setOnRefreshListener{
@@ -81,13 +76,9 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
             board_swipe.isRefreshing = false
         }
 
-        //새로고침 버튼
-        board_btn_refresh.setOnClickListener(View.OnClickListener{
-            //coroutine()
-        })
 
         //글 작성 버튼
-        board_btn_write.setOnClickListener(View.OnClickListener {
+        btn_write.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, PostWriteActivity::class.java)
             startActivityForResult(intent,REQUEST_WRITE)
         })
@@ -161,7 +152,7 @@ class BoardActivity : AppCompatActivity(), CoroutineScope {
 
     private suspend fun request(key:Int) = suspendCoroutine<ArrayList<DataClassPost>>{
     //private fun request():ArrayList<DataClassPost>{
-        val url = "http://172.30.1.1:3000/board/$key/10"
+        val url = "http://172.30.1.2:3000/board/$key/10"
         var list = ArrayList<DataClassPost>()
         try {
             val requestQueue = Volley.newRequestQueue(this@BoardActivity)

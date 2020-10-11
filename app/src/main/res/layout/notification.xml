@@ -2,47 +2,65 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:background="@color/colorWhite">
 
 
     <androidx.appcompat.widget.Toolbar
-            android:id="@+id/noti_tb"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-    </androidx.appcompat.widget.Toolbar>
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/colorWhite" />
+
+    <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_back"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            app:layout_constraintTop_toTopOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/textview"
+            app:layout_constraintHorizontal_bias="0.5"/>
 
     <TextView
-            android:id="@+id/noti_tb_title"
+            android:id="@+id/textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/noti_tb"
-            app:layout_constraintEnd_toEndOf="@+id/noti_tb"
-            app:layout_constraintTop_toTopOf="@+id/noti_tb"
-            app:layout_constraintBottom_toBottomOf="@+id/noti_tb"
-            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toStartOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintHorizontal_bias="0.2"
             android:textColor="@color/colorBlack" android:text="알림"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/board_nav_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/colorGray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:menu="@menu/bottom_nav_menu"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/noti_rv"
             android:layout_width="395dp"
             android:layout_height="595dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/noti_tb"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintBottom_toTopOf="@+id/board_nav_view"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/board_nav_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom_nav_menu"
+            android:background="@color/colorWhite"
+            app:elevation="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

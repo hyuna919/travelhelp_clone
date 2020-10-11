@@ -2,6 +2,7 @@ package com.example.travel_help.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
@@ -34,11 +35,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            R.id.navigation_mypage -> {
-                val intent = Intent(this, MypageActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
         }
         false
     }
@@ -61,6 +57,17 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
+        //일정관리버튼
+        btn_calendar.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, CalendarActivity::class.java)
+            startActivity(intent)
+        })
+
+        //마이페이지 버튼
+        btn_setting.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
+        })
 
         // 게시판리사이클러뷰 어댑터
         val intent = Intent(this, BoardActivity::class.java)

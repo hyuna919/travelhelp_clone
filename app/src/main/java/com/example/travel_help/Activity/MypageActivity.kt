@@ -31,11 +31,6 @@ class MypageActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            R.id.navigation_mypage -> {
-                val intent = Intent(this, MypageActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
         }
         false
     }

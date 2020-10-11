@@ -35,16 +35,16 @@ class SignupActivity : AppCompatActivity(), CoroutineScope {
 
         //아이디 중복 확인
         bt_check.setOnClickListener(View.OnClickListener {
-            var id = put_id.text.toString()
+            var id = et_id.text.toString()
             iDCheckRequest(id)
         })
 
         //비밀번호 확인
-        put_pw_check.addTextChangedListener(object: TextWatcher {
+        et_pw_check.addTextChangedListener(object: TextWatcher {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                var pw = put_pw.text.toString()
-                var check_pw = put_pw_check.text.toString()
+                var pw = et_pw.text.toString()
+                var check_pw = et_pw_check.text.toString()
                 checkPw(pw,check_pw)
             }
 
@@ -56,8 +56,8 @@ class SignupActivity : AppCompatActivity(), CoroutineScope {
         })
 
         btn_finish.setOnClickListener(View.OnClickListener{
-            var id = put_id.text.toString()
-            var pw = put_pw.text.toString()
+            var id = et_id.text.toString()
+            var pw = et_pw.text.toString()
             val scope = CoroutineScope(Dispatchers.Main)
 
             scope.launch(Dispatchers.Main) {
@@ -110,7 +110,7 @@ class SignupActivity : AppCompatActivity(), CoroutineScope {
                             tv_idcheck.setText("사용 가능한 아이디입니다.")
                             tv_idcheck.setTextColor(Color.GREEN)
                         }else{
-                            put_id.setText(null)
+                            et_id.setText(null)
                             tv_idcheck.setText("이미 존재하는 아이디입니다.")
                             tv_idcheck.setTextColor(Color.RED)
                         }

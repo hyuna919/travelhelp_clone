@@ -45,7 +45,7 @@ class LoginActivity :AppCompatActivity() {
     }
 
     fun request(id:String, pw:String) {
-        val url = "http://172.30.1.1:3000/users/login"
+        val url = "http://172.30.1.2:3000/users/login"
 
         val testjson = JSONObject()
         try {
