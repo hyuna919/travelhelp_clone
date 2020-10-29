@@ -87,7 +87,7 @@ class SignupActivity : AppCompatActivity(), CoroutineScope {
 
 
     fun iDCheckRequest(id:String) {
-        val url = "http://172.30.1.1:3000/users/signup/checkId"
+        val url = "http://172.30.1.34:3000/users/signup/checkId"
 
         val testjson = JSONObject()
         try {
@@ -185,14 +185,17 @@ class SignupActivity : AppCompatActivity(), CoroutineScope {
     }
 
     fun checkPw(pw1:String, pw2:String){
-        if(pw1==pw2){
-            tv_pwcheck.setText("비밀번호가 일치합니다.")
-            tv_pwcheck.setTextColor(Color.GREEN)
-            checkPw = true
-        }else{
-            tv_pwcheck.setText("비밀번호가 일치하지 않습니다")
-            tv_pwcheck.setTextColor(Color.RED)
-            checkPw = false
+        if(pw1!=null){
+            if(pw1==pw2){
+                tv_pwcheck.setText("비밀번호가 일치합니다.")
+                tv_pwcheck.setTextColor(Color.GREEN)
+                checkPw = true
+            }else{
+                tv_pwcheck.setText("비밀번호가 일치하지 않습니다")
+                tv_pwcheck.setTextColor(Color.RED)
+                checkPw = false
+            }
         }
+
     }
 }

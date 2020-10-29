@@ -1,6 +1,7 @@
 package com.example.travel_help.Activity
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -14,6 +15,8 @@ import com.github.nkzawa.emitter.Emitter
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import kotlinx.android.synthetic.main.chat.*
+import kotlinx.android.synthetic.main.chat.btn_back
+import kotlinx.android.synthetic.main.login.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -29,23 +32,29 @@ class ChatActivity: Activity() {
     private var startTyping = false
     private var time = 2
 
-    private var mSocket: Socket = IO.socket("http://172.30.1.1:3000/")
+    private var mSocket: Socket = IO.socket("http://172.30.1.34:3000/")
 
 
-    var dummy = arrayListOf<DataClassChatting>(
-        DataClassChatting("abc_root","abc","root","2020-09-15", "01:12","안녕하세요")
-    )
-    val mAdapter = ChatRvAdapter(this, dummy){}
+    val mAdapter = ChatRvAdapter(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat)
 
-        //유저 아이디
-        val id = App.prefs.getString("id","fail")
-        //채팅방이름="처음보낸사람_받는사람"
-        var roomNumber = "abc_root"
+        //채팅방
+        val user_id = App.prefs.getString("id","fail")
+        val other_id = intent?.getStringExtra("other_id")
+        val roomNumber = intent?.getStringExtra("roomNumber")
+
+        board_boardtitle.setText(other_id)
+
+        //뒤로 버튼
+        btn_back.setOnClickListener(View.OnClickListener {
+            finish()
+        })
+
+        //
 
         rv_chat.adapter = mAdapter
         //리사이클러뷰 레이아웃매니저
@@ -54,7 +63,7 @@ class ChatActivity: Activity() {
         rv_chat.setHasFixedSize(true)
 
         imageButton.setOnClickListener(View.OnClickListener {
-            sendMessage()
+            sendMessage(intent)
         })
 
         if (savedInstanceState != null) {
@@ -75,9 +84,9 @@ class ChatActivity: Activity() {
             //이름,룸네임을 jsonObject에 담음
             val userId = JSONObject()
             try {
-                userId.put("username", id)
+                userId.put("username", user_id)
                 userId.put("roomNumber", roomNumber)
-                Log.e("id:",id)
+                Log.e("id:",user_id)
                 //socket.emit은 메세지 전송임
                 mSocket.emit("connect user", userId)
             } catch (e: JSONException) {
@@ -152,18 +161,19 @@ class ChatActivity: Activity() {
         })
     }
 
-    fun sendMessage() {
-        val now = System.currentTimeMillis()
+    fun sendMessage(intent: Intent) {
+//        val now = System.currentTimeMillis()
+        val now = Calendar.getInstance().getTime()
         //나중에 바꿔줄것 밑의 yyyy-MM-dd는 그냥 20xx년 xx월 xx일만 나오게 하는 식
         val sdf_date = SimpleDateFormat("yyyy-MM-dd")
         val sdf_time = SimpleDateFormat("kk:mm")
 
-        val roomNumber = "abc_root"
+        val roomNumber = intent.getStringExtra("roomNumber")
         val sender = App.prefs.getString("id","fault")
         val receiver = "abc"
-        val date = sdf_date.format(Date(now))
-        val time = sdf_time.format(Date(now))
-        val message = "렘브란트와 표정있는 얼굴들"
+        val date = sdf_date.format(now.getTime())
+        val time = sdf_time.format(now.getTime())
+        val message = editText.text.toString()
 
         if (TextUtils.isEmpty(message)) {
             return

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_voice">
+        <item>계정설정</item>
+        <item>이메일 인증</item>
+        <item>비밀번호 변경</item>
+        <item>회원탈퇴</item>
+    </string-array>
+
+    <string-array name="post_type">
+        <item>행사</item>
+        <item>일상</item>
+        <item>교통</item>
+        <item>사고</item>
+    </string-array>
+</resources>

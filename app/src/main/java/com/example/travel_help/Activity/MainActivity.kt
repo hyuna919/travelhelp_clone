@@ -2,22 +2,25 @@ package com.example.travel_help.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.travel_help.App
 import com.example.travel_help.DataClass.DataClassCountry
 import com.example.travel_help.DataClass.DataClassSchedule
 import com.example.travel_help.RecyclerViewAdapter.MainRvAdapter
 import com.example.travel_help.R
 import com.example.travel_help.RecyclerViewAdapter.ScheduleRvAdapter
+import kotlinx.android.synthetic.main.board.*
 import kotlinx.android.synthetic.main.main.*
 
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var textMessage: TextView
+    private val REQUEST = 1001
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -25,13 +28,13 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            R.id.navigation_massege -> {
+            R.id.navigation_chatting -> {
                 val intent = Intent(this, MsgListActivity::class.java)
                 startActivity(intent)
                 finish()
             }
-            R.id.navigation_noti -> {
-                val intent = Intent(this, NotiActivity::class.java)
+            R.id.navigation_mypage -> {
+                val intent = Intent(this, MypageActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -46,51 +49,53 @@ class MainActivity : AppCompatActivity() {
     )
 
     val scheduleLIst = arrayListOf<DataClassSchedule>(
-        DataClassSchedule("프랑스", "20200919","20200925"),
-        DataClassSchedule("이탈리아", "20200926","20201006"),
-        DataClassSchedule("터키", "20201007","20201018")
+        DataClassSchedule("프랑스", "20200919~20200926"),
+        DataClassSchedule("독일", "20200926~20201006"),
+        DataClassSchedule("벨기에", "20201007~20201010")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
-        val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
+        val navView: BottomNavigationView = findViewById(R.id.navigation)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        //일정관리버튼
-        btn_calendar.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, CalendarActivity::class.java)
-            startActivity(intent)
-        })
+        val user_id = App.prefs.getString("id","fail")
+        tv_name.setText(user_id+"님\n즐거운 여행되세요")
 
-        //마이페이지 버튼
-        btn_setting.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)
-        })
+//        //일정관리버튼
+//        btn_calendar.setOnClickListener(View.OnClickListener {
+//            val intent = Intent(this, CalendarActivity::class.java)
+//            startActivity(intent)
+//        })
+//
+//        //마이페이지 버튼
+//        btn_setting.setOnClickListener(View.OnClickListener {
+//            val intent = Intent(this, MypageActivity::class.java)
+//            startActivity(intent)
+//        })
 
-        // 게시판리사이클러뷰 어댑터
-        val intent = Intent(this, BoardActivity::class.java)
-        val mAdapter = MainRvAdapter(this, countryList) {
-            //country ->startActivity(intent)}//(Intent(this, BoardActivity::class.java))}
-                country ->
-            intent.putExtra("title", country.countryName)
-            startActivity(intent)
+
+
+
+        //스케쥴 리스트 마지막에 빈
+        if(scheduleLIst.last().city=="추가"){
+        }else{
+            scheduleLIst.add(DataClassSchedule("추가", null))
         }
-        rv_country.adapter = mAdapter
-
-        //게시판 리사이클러뷰 레이아웃매니저
-        val lm = LinearLayoutManager(this)
-        rv_country.layoutManager = lm
-        rv_country.setHasFixedSize(true)
 
         // 스케쥴 리사이클러뷰 어댑터
-        val s_intent = Intent(this, BoardActivity::class.java)
         val s_mAdapter = ScheduleRvAdapter(this, scheduleLIst) {
             //country ->startActivity(intent)}//(Intent(this, BoardActivity::class.java))}
-                country ->
-            //s_intent.putExtra("title", country.countryName)
-            startActivity(s_intent)
+                country, position ->
+            if(country.city!="추가"){
+                val s_intent = Intent(this, BoardActivity::class.java)
+                s_intent.putExtra("title", country.city)
+                startActivity(s_intent)
+            }else{
+                val s_intent = Intent(this, AddCountryActivity::class.java)
+                startActivityForResult(s_intent,REQUEST)
+            }
         }
         rv_schedule.adapter = s_mAdapter
 
@@ -99,20 +104,17 @@ class MainActivity : AppCompatActivity() {
         rv_schedule.layoutManager = s_lm
         rv_schedule.setHasFixedSize(true)
 
-        //임시 버튼 연결
-        /*
-        var boardCountry: String = "나라" //intent로 넘겨서 게시판종류 정할때 사용
-        main_btn_board_Deutsch.setOnClickListener{
-            val intent = Intent(this, BoardActivity::class.java)
-            boardCountry="@string/Deutsch"
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == RESULT_OK){
+            rv_schedule.adapter?.notifyDataSetChanged()
         }
-        main_btn_board_France.setOnClickListener{
-            boardCountry="@string/France"
-        }
-        */
+    }
 
-
-
-
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

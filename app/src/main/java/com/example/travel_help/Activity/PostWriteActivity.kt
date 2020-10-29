@@ -5,8 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.DatePicker
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
@@ -15,76 +14,66 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.travel_help.App
 import com.example.travel_help.R
+import kotlinx.android.synthetic.main.board_rv.*
 import kotlinx.android.synthetic.main.post_write.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
 
 class PostWriteActivity :AppCompatActivity(){
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.post_write)
         var post_id:String="0"
+
 
         //기존 게시글 수정이라면
         val change = intent.getBooleanExtra("change",false)
         if(change==true){
             post_id = intent.getStringExtra("post_id")
             val title = intent.getStringExtra("title")
-            val date = intent.getStringExtra("date")
-            val airport = intent.getStringExtra("airport")
+            val location = intent.getStringExtra("location")
             val content = intent.getStringExtra("content")
 
-            pwr_title.setText(title)
+            ed_title.setText(title)
             //게시글 수정시 제목수정 불가
-            pwr_title.isFocusable=false
-            pwr_title.isFocusableInTouchMode=false
-            pwr_tv_date?.setText(date)
-            pwr_airport?.setText(airport)
-            pwr_content?.setText(content)
+            ed_title.isFocusable=false
+            ed_title.isFocusableInTouchMode=false
+            tv_location?.setText(location)
+            ed_contents?.setText(content)
         }
 
-        //날짜 입력
-        pwr_btn_date.setOnClickListener{ View->
-            var calendar= Calendar.getInstance()
-            var year = calendar.get(Calendar.YEAR)
-            var month = calendar.get(Calendar.MONTH)
-            var day = calendar.get(Calendar.DAY_OF_MONTH)
-
-
-            var c_listener = object : DatePickerDialog.OnDateSetListener {
-                override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
-                    pwr_tv_date?.setText(p1.toString()+"-"+(p2+1).toString()+"-"+p3.toString())
-                }
-            }
-
-            var dialog = DatePickerDialog(this,c_listener,year,month,day)
-            dialog.show()
-        }
+        val models = resources.getStringArray(R.array.post_type)
+        val adapter = ArrayAdapter(baseContext, R.layout.support_simple_spinner_dropdown_item, models)
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        adapter.notifyDataSetChanged();
+        spinner.setSelection(0)
 
         //저장 버튼(pwr_btn)
-        pwr_btn.setOnClickListener(View.OnClickListener {
-            lateinit var intent:Intent
-            val title = pwr_title.text.toString()
-            val date = pwr_tv_date.text.toString()
-            val airport = pwr_airport.text.toString()
-            val content = pwr_content.text.toString()
+        btn_push.setOnClickListener(View.OnClickListener {
+            val type="["+spinner.selectedItem.toString()+"]"
+            val title = ed_title.text.toString()
+            val location = tv_location.text.toString()
+            val content = ed_contents.text.toString()
+            val country = intent.getStringExtra("country")
 
             if(change==true){   //게시글 수정이라면
-                request(title, date, airport, content,post_id)
+                request(type,title, location, content,post_id ,country)
             }else{      //게시글 등록(수정x)라면
-                request(title, date, airport, content,post_id)
+                request(type,title, location, content,post_id ,country)
             }
         })
 
     }
 
-    fun request(title:String, date:String, airport:String, content:String, post_id:String) {    //post_id 0:등록, 0이 아니면:수정
+    fun request(type:String, title:String, location:String, content:String, post_id:String ,city:String) {    //post_id 0:등록, 0이 아니면:수정
         lateinit var url:String
         if(post_id=="0"){   //등록
-            url = "http://172.30.1.45:3000/posts/writePost"
+            url = "http://172.30.1.34:3000/posts/writePost"
         }else{              //수정
-            url = "http://172.30.1.45:3000/posts/updatePost"
+            url = "http://172.30.1.34:3000/posts/updatePost"
         }
 
 
@@ -92,10 +81,12 @@ class PostWriteActivity :AppCompatActivity(){
         try {
             val tmp = App.prefs.getString("token","fail")
             testjson.put("accessToken", tmp)
+            testjson.put("type", type)
             testjson.put("title", title)
-            testjson.put("date", date)
-            testjson.put("airport", airport)
+            testjson.put("location", location)
             testjson.put("content", content)
+            testjson.put("recommended",0)
+            testjson.put("country",city)
             if(post_id != "0") {
                 Log.d("++++++++++++++++",post_id)
                 testjson.put("post_id", post_id)

@@ -21,18 +21,13 @@ class NotiActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            R.id.navigation_massege -> {
+            R.id.navigation_chatting -> {
                 val intent = Intent(this, MsgListActivity::class.java)
                 startActivity(intent)
                 finish()
             }
-            R.id.navigation_noti -> {
-                val intent = Intent(this, NotiActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
             R.id.navigation_mypage -> {
-                val intent = Intent(this, MypageActivity::class.java)
+                val intent = Intent(this, NotiActivity::class.java)
                 startActivity(intent)
                 finish()
             }

@@ -2,14 +2,15 @@ package com.example.travel_help.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.travel_help.DataClass.DataClassMypage
+import com.example.travel_help.Fragment.MypageFragment
 import com.example.travel_help.RecyclerViewAdapter.MypageRvAdapter
 import com.example.travel_help.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.mypage.*
+import kotlinx.android.synthetic.main.login.*
 
 
 class MypageActivity : AppCompatActivity() {
@@ -21,12 +22,12 @@ class MypageActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            R.id.navigation_massege -> {
+            R.id.navigation_chatting -> {
                 val intent = Intent(this, MsgListActivity::class.java)
                 startActivity(intent)
                 finish()
             }
-            R.id.navigation_noti -> {
+            R.id.navigation_mypage -> {
                 val intent = Intent(this, NotiActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -41,26 +42,22 @@ class MypageActivity : AppCompatActivity() {
         DataClassMypage("회원탈퇴")
     )
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mypage)
-        val navView: BottomNavigationView = findViewById(R.id.board_nav_view)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.constraint , MypageFragment())
+            .commit()
+        val navView: BottomNavigationView = findViewById(R.id.navigation)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        //리사이클러뷰 어댑터
-        //val intent = Intent(this, BoardActivity::class.java)
-        val mAdapter = MypageRvAdapter(this, dummy) {
-            //country ->startActivity(intent)}//(Intent(this, BoardActivity::class.java))}
-            //country ->
-            //intent.putExtra("title", country.countryName)
-            //startActivity(intent)
+        //뒤로 버튼
+        btn_back.setOnClickListener(View.OnClickListener {
+            finish()
+        })
 
-        }
-        mypage_rv.adapter = mAdapter
-
-        //리사이클러뷰 레이아웃매니저
-        val lm = LinearLayoutManager(this)
-        mypage_rv.layoutManager = lm
-        mypage_rv.setHasFixedSize(true)
     }
 }

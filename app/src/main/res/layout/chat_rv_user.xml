@@ -4,7 +4,9 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_gravity="right"
-              android:gravity="right">
+              android:gravity="right"
+              android:layout_margin="8dp"
+>
 
 
     <TextView
@@ -17,6 +19,8 @@
             android:id="@+id/msg"
             android:text="TextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorYellow"/>
+            android:layout_height="30dp"
+            android:padding="4dp"
+            android:textColor="@color/colorBlack"
+            android:background="@color/colorBlue"/>
 </LinearLayout>

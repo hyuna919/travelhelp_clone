@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="계정설정"
+    >
+        <PreferenceScreen
+            android:title="이메일 인증"/>
+        <PreferenceScreen
+                android:title="비밀번호 변경"/>
+        <PreferenceScreen
+                android:title="회원탈퇴"/>
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

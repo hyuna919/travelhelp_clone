@@ -24,6 +24,10 @@ class LoginActivity :AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
+        //뒤로 버튼
+        btn_back.setOnClickListener(View.OnClickListener {
+            finish()
+        })
 
         //로그인 버튼
         bt_login.setOnClickListener(View.OnClickListener {
@@ -32,12 +36,6 @@ class LoginActivity :AppCompatActivity() {
 
             request(u_id, u_pw)
         })
-
-        //회원가입 버튼
-        bt_signup.setOnClickListener(View.OnClickListener {
-            var intent = Intent(this, SignupActivity::class.java)
-            startActivity(intent)
-        })
     }
 
     override fun onDestroy() {
@@ -45,12 +43,13 @@ class LoginActivity :AppCompatActivity() {
     }
 
     fun request(id:String, pw:String) {
-        val url = "http://172.30.1.2:3000/users/login"
+        val url = "http://172.30.1.34:3000/users/login"
 
         val testjson = JSONObject()
         try {
-            testjson.put("id", "abc")
-            testjson.put("password", "1234")
+            testjson.put("id", id)
+            testjson.put("password", pw)
+
             val jsonString = testjson.toString()
 
 
@@ -58,7 +57,7 @@ class LoginActivity :AppCompatActivity() {
             val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, url, testjson,
                 Response.Listener { response ->
                     try {
-                        Log.d("---------------------","데이터전송 성공")
+
                         val jsonObject = JSONObject(response.toString())
 
                         App.prefs.setString("token",jsonObject.getString("token"))
