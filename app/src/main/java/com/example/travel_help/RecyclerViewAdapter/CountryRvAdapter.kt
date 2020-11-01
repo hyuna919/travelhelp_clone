@@ -11,7 +11,7 @@ import com.example.travel_help.DataClass.DataClassCountry
 import com.example.travel_help.DataClass.DataClassSchedule
 import com.example.travel_help.R
 
-class CountryRvAdapter(val context:Context, val itemClick: (country:String) -> Unit):
+class CountryRvAdapter(val itemClick: (country:String) -> Unit):
     RecyclerView.Adapter<CountryRvAdapter.Holder>() {
 
     private val list = arrayListOf(
@@ -24,7 +24,7 @@ class CountryRvAdapter(val context:Context, val itemClick: (country:String) -> U
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(context).inflate(R.layout.country_rv, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.country_rv, parent, false)
         return Holder(view, itemClick)
     }
 
@@ -49,6 +49,7 @@ class CountryRvAdapter(val context:Context, val itemClick: (country:String) -> U
                 "프랑스" -> flag?.setImageResource(R.drawable.flag_france)
                 "영국" -> flag?.setImageResource(R.drawable.flag_uk)
                 "벨기에" -> flag?.setImageResource(R.drawable.flag_belgium)
+                "그리스" -> flag?.setImageResource(R.drawable.flag_greece)
                 else -> flag?.setImageResource(R.drawable.ic_add_rounded)
 
             }

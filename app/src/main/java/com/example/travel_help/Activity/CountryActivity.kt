@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley
 import com.example.travel_help.RecyclerViewAdapter.BoardRvAdapter
 import com.example.travel_help.DataClass.DataClassPost
 import com.example.travel_help.R
+import com.example.travel_help.RecyclerViewAdapter.CountryRvAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.board.*
 import kotlinx.android.synthetic.main.board.btn_back
@@ -29,7 +30,7 @@ import kotlin.coroutines.suspendCoroutine
 
 
 class CountryActivity : AppCompatActivity() {
-    private lateinit var mAdapter: BoardRvAdapter
+    private lateinit var mAdapter: CountryRvAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,15 +46,8 @@ class CountryActivity : AppCompatActivity() {
 
 
         //리사이클러뷰 어댑터
-        val intent = Intent(this, PostReadActivity::class.java)
-        mAdapter = BoardRvAdapter(){ post, position -> intent.putExtra("post_id",post.post_id)
-            intent.putExtra("type",post.type)
-            intent.putExtra("title",post.title)
-            intent.putExtra("content",post.content)
-            intent.putExtra("writer_id",post.writer_id)
-            intent.putExtra("createdAt:",post.createdAt)
-            intent.putExtra("city",title)
-
+        mAdapter = CountryRvAdapter(){
+            position->
         }
         board_rv.adapter=mAdapter
 
