@@ -47,7 +47,7 @@ class ChatActivity: Activity() {
         val other_id = intent?.getStringExtra("other_id")
         val roomNumber = intent?.getStringExtra("roomNumber")
 
-        board_boardtitle.setText(other_id)
+        tv_boardtitle.setText(other_id)
 
         //뒤로 버튼
         btn_back.setOnClickListener(View.OnClickListener {
@@ -61,10 +61,10 @@ class ChatActivity: Activity() {
         val lm = LinearLayoutManager(this)
         rv_chat.layoutManager = lm
         rv_chat.setHasFixedSize(true)
-
-        imageButton.setOnClickListener(View.OnClickListener {
-            sendMessage(intent)
-        })
+//
+//        imageButton.setOnClickListener(View.OnClickListener {
+//            sendMessage(intent)
+//        })
 
         if (savedInstanceState != null) {
             hasConnection = savedInstanceState.getBoolean("hasConnection")

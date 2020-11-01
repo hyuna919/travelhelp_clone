@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                 s_intent.putExtra("title", country.city)
                 startActivity(s_intent)
             }else{
-                val s_intent = Intent(this, AddCountryActivity::class.java)
+                val s_intent = Intent(this, CountryActivity::class.java)
                 startActivityForResult(s_intent,REQUEST)
             }
         }

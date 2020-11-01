@@ -5,11 +5,15 @@
 
     <PreferenceCategory
             android:title="계정설정"
+
     >
         <PreferenceScreen
             android:title="이메일 인증"/>
         <PreferenceScreen
                 android:title="비밀번호 변경"/>
+        <PreferenceScreen
+                android:key="logout"
+                android:title="로그아웃"/>
         <PreferenceScreen
                 android:title="회원탈퇴"/>
     </PreferenceCategory>

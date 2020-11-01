@@ -47,7 +47,7 @@ class MsgListActivity : AppCompatActivity(), CoroutineScope {
                 finish()
             }
             R.id.navigation_mypage -> {
-                val intent = Intent(this, NotiActivity::class.java)
+                val intent = Intent(this, MypageActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -106,7 +106,7 @@ class MsgListActivity : AppCompatActivity(), CoroutineScope {
 
     private suspend fun request(key:Int) = suspendCoroutine<ArrayList<DataClassMsg>>{
         //private fun request():ArrayList<DataClassMsg>{
-        val url = "http://172.30.1.34:3000/messages/msglist"
+        val url = "http://172.30.1.51:3000/messages/msglist"
         var list = ArrayList<DataClassMsg>()
         try {
             val requestQueue = Volley.newRequestQueue(this)

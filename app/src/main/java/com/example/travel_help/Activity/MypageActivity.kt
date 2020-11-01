@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.login.*
 
 
 class MypageActivity : AppCompatActivity() {
-    private lateinit var textMessage: TextView
+
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -36,12 +36,6 @@ class MypageActivity : AppCompatActivity() {
         false
     }
 
-    //리사이클러뷰 더미데이터
-    val dummy = arrayListOf<DataClassMypage>(
-        DataClassMypage("비밀번호 변경"),
-        DataClassMypage("회원탈퇴")
-    )
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,10 +48,6 @@ class MypageActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.navigation)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        //뒤로 버튼
-        btn_back.setOnClickListener(View.OnClickListener {
-            finish()
-        })
 
     }
 }
